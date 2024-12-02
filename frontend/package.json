@@ -8,8 +8,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
-    "start": "concurrently \"npm:start\" \"cd ../backend && mvn spring-boot:run\""
+    "preview": "vite preview",
+    "start": "concurrently \"npm run dev\" \"cd .. && mvn spring-boot:run\""
   },
   "dependencies": {
     "react": "^18.3.1",
