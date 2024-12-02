@@ -1,0 +1,21 @@
+BE/FE strucutre to increase seperation.
+FE is React using Vite install.
+-npm run dev => runs React only,
+-npm run start => runs SB + React.
+
+
+project-root/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   ├── resources/
+│   ├── pom.xml
+│   └── application.yml
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── webpack.config.js
+├── README.md
+└── .gitignore
