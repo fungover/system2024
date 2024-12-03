@@ -17,7 +17,7 @@ public class File {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Size(max = 255)
+    @Size(max = 2000)
     @NotNull
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
