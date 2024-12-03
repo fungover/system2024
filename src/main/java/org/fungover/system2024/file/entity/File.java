@@ -38,7 +38,7 @@ public class File {
         return fileUrl;
     }
 
-    public void setFileUrl(String symbol) {
+    public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
     }
 }
