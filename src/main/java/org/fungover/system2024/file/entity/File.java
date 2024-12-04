@@ -3,12 +3,16 @@ package org.fungover.system2024.file.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 @Entity
 @Table(name = "file", schema = "system24db")
 @Indexed
+@Setter
+@Getter
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,24 +29,4 @@ public class File {
     @Size(max = 2000)
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
-
-    public Integer getId() { return id; }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() { return name; }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
 }
