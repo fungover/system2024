@@ -6,15 +6,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService {
+    private FileRepository fileRepository;
+    private FileSearchRepository fileSearchRepository;
 
-    FileRepository fileRepository;
-
-    public FileService(FileRepository fileRepository) {
+    public FileService(FileRepository fileRepository, FileSearchRepository fileSearchRepository) {
         this.fileRepository = fileRepository;
+        this.fileSearchRepository = fileSearchRepository;
     }
 
-    public List<FileDTO> getByName(String name) {
-        List<FileDTO> files = fileRepository.findByName(name)
+    public List<FileDTO> getAllFiles() {
+        return fileRepository.findAll()
+                .stream()
+                .map(FileDTO::fromFile)
+                .toList();
+    }
+
+    public List<FileDTO> getByNameFuzzy(String name) {
+        List<FileDTO> files = fileSearchRepository.findByNameFuzzy(name)
                 .stream()
                 .map(FileDTO::fromFile)
                 .collect(Collectors.toList());
