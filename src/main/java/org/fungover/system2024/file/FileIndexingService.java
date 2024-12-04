@@ -35,6 +35,7 @@ public class FileIndexingService implements ApplicationRunner {
                 indexer.startAndWait();
             } catch (InterruptedException e) {
                 System.out.println("An error occurred trying to build the search index: " + e);
+                Thread.currentThread().interrupt();
             }
         });
     }
