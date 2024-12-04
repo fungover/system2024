@@ -3,9 +3,12 @@ package org.fungover.system2024.file.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "file", schema = "system24db")
+@Indexed
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +18,7 @@ public class File {
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
+    @Field
     private String name;
 
     @Size(max = 2000)
