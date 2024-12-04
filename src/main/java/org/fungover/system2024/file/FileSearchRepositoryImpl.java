@@ -28,8 +28,6 @@ public class FileSearchRepositoryImpl implements FileSearchRepository {
                 // - it will be less strict when searching. So play around with this setting if you want to.
                 .fetch(20);
 
-        List<File> files = searchResult.hits();
-
-        return files;
+        return searchResult.hits();
     }
 }
