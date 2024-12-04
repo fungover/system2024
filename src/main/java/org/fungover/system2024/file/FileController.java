@@ -14,6 +14,11 @@ public class FileController {
         this.fileService = fileService;
     }
 
+    @GetMapping
+    public List<FileDTO> getAllFiles() {
+        return fileService.getAllFiles();
+    }
+
      @GetMapping("/{name}")
     public List<FileDTO> getFilesByNameFuzzy(@PathVariable String name) {
         return fileService.getByNameFuzzy(name);
