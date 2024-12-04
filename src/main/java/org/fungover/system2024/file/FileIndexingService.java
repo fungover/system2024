@@ -34,7 +34,7 @@ public class FileIndexingService implements ApplicationRunner {
                 MassIndexer indexer = searchSession.massIndexer(entityType);
                 indexer.startAndWait();
             } catch (InterruptedException e) {
-                System.out.println("An error occurred trying to build the search index: " + e.toString());
+                System.out.println("An error occurred trying to build the search index: " + e);
             }
         });
     }
