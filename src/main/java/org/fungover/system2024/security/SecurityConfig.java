@@ -37,7 +37,8 @@ public class SecurityConfig {
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessHandler(logoutSuccessHandler())
-                );
+                )
+                .exceptionHandling((exception -> exception.authenticationEntryPoint(new CustomAuthenticationEntryPoint())));
         return http.build();
     }
 
