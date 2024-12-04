@@ -15,7 +15,7 @@ public class FileController {
     }
 
      @GetMapping("/{name}")
-    public List<FileDTO> getFilesByName(@PathVariable String name) {
-        return fileService.getByName(name);
+    public List<FileDTO> getFilesByNameFuzzy(@PathVariable String name) {
+        return fileService.getByNameFuzzy(name);
      }
 }
