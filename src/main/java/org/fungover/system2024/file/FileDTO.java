@@ -5,8 +5,7 @@ import org.fungover.system2024.file.entity.File;
 public record FileDTO(String name, String fileUrl) {
     public static FileDTO fromFile(File file) {
         if (file == null) {
-            System.out.println("file is null");
-            return null;
+            throw new IllegalArgumentException("File is null");
         }
             return new FileDTO(
                     file.getName(),
