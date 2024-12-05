@@ -11,10 +11,18 @@ TODO: Proxy is "configured" in FE\package.json, this is to help with communicati
 ---
 
 ## GitHub OAuth2
-### 1. Get client ID and client secret
+### 1. Get client ID and client secret (Use this [link](https://github.com/settings/developers) to create an OAuth app to use locally)
+1. Set the Homepage URL to http://localhost:8080  
+2. Set the Authorization callback URL to http://localhost:8080/login/oauth2/code/github  
+3. Register the application  
+4. Generate client secret
 ### 2. Add client ID and client secret to your application:
 
-***IntelliJ navbar -> Run -> Edit configurations -> Environment variables***
+***Option 1:***  
+IntelliJ navbar -> Run -> Edit configurations -> Environment variables
+
+***Option 2:***  
+Create a .env file in the root of the project
 ### Add:
 ```
 GITHUB_CLIENT_ID=id (replace id with your client ID)
