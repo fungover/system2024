@@ -16,7 +16,7 @@ public class SecurityConfig {
     @Profile("development")
     public SecurityFilterChain developmentSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(Customizer.withDefaults()) // Enable CSRF protection
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // Allow all requests for development
                 )
