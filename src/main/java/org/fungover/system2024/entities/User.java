@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "users", schema = "system24db")
+@Table(name = "user", schema = "system24db")
 public class User {
     @Id
     @Column(name = "id", nullable = false)
@@ -30,6 +30,6 @@ public class User {
 
     @Size (max = 255)
     @NotNull
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "password", nullable = false, unique = true)
     private String password;
 }

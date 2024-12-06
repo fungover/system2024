@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS user
 (
     id       INT AUTO_INCREMENT PRIMARY KEY,
     name     VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    UNIQUE (email)
     );
 
 CREATE TABLE IF NOT EXISTS roles
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS user_role
     user_id INT,
     PRIMARY KEY (role_id, user_id),
     FOREIGN KEY (role_id) REFERENCES roles (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES user (id)
     );
 
 CREATE TABLE IF NOT EXISTS permissions
