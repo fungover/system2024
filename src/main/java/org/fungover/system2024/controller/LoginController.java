@@ -11,7 +11,11 @@ public class LoginController {
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        model.addAttribute("name", principal.getAttribute("name"));
+        if (principal != null) {
+            model.addAttribute("name", principal.getAttribute("name"));
+        } else {
+            model.addAttribute("name", "Guest");
+        }
         return "index";
     }
 }

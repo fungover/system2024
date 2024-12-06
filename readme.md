@@ -37,3 +37,9 @@ http://localhost:8080/
 http://localhost:8080/login
 http://localhost:8080/logout
 ```
+---  
+### Switch between profiles in ***application.properties***:
+```
+spring.profiles.active=production  
+spring.profiles.active=development
+```
