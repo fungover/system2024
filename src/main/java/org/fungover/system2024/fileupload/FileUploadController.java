@@ -1,109 +1,62 @@
 package org.fungover.system2024.fileupload;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/fileupload")
+@RequestMapping("/api/files")
 public class FileUploadController {
+    @Autowired
 
-    @Value("${upload.directory}")
-    private String uploadDirectory;
+    StorageService storageService;
 
-    @Value("${download.directory}")
-    private String downloadDirectory;
-
-    @PostMapping
-    public String handleFileUpload(@RequestParam("files") List<MultipartFile> files, Model model) {
-        String folderName = getFolderName();
-        Path uploadFolderPath = Paths.get(uploadDirectory, folderName);
-
-        // Create the upload directory if it doesn't exist
-        try {
-            Files.createDirectories(uploadFolderPath);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to create upload directory", e);
-        }
-
-        int uploadedFileCount = 0;
-
-        for (MultipartFile file : files) {
-            if (!file.isEmpty() && file.getOriginalFilename() != null && file.getOriginalFilename().endsWith(".gpx")) {
-                try {
-                    Path filePath = uploadFolderPath.resolve(file.getOriginalFilename());
-                    try (InputStream inputStream = file.getInputStream();
-                            FileOutputStream outputStream = new FileOutputStream(filePath.toFile())) {
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                    }
-                    uploadedFileCount++;
-                } catch (IOException e) {
-                    throw new RuntimeException("Failed to save file", e);
-                }
-            }
-        }
-
-        // Simulate running the goodHunt.main method
-        try {
-            fileuploader.main(new String[] { folderName });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Construct download URL
-        String csvFileName = "csv" + folderName + ".csv";
-        String downloadUrl = "/fileupload/download/" + csvFileName;
-
-        // Add response data to the model
-        model.addAttribute("uploadedFileCount", uploadedFileCount);
-        model.addAttribute("downloadUrl", downloadUrl);
-
-        return "uploadResult"; // Name of the Thymeleaf template for showing the result
+    public FileUploadController(StorageService storageService) {
+        this.storageService = storageService;
     }
 
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
-        try {
-            Path filePath = Paths.get(downloadDirectory, fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION,
-                                "attachment; filename=\"" + resource.getFilename() + "\"")
-                        .body(resource);
-            } else {
-                throw new RuntimeException("File not found: " + fileName);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error during file download", e);
+    // TODO: Download function,
+    //  * needs to add security check of user
+    //  * change to POST request with List to have better UI
+    @GetMapping("/fetch/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        Resource file = storageService.loadAsResource(filename);
+
+        if (file == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    private static String getFolderName() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddHHmmssSSSS");
-        Date currentDate = new Date();
-        return dateFormat.format(currentDate).substring(0, 12);
+    @PostMapping("/")
+    public String handleMultiFileUpload(@RequestParam("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
+        try {
+
+            for (MultipartFile file : files) {
+                storageService.store(file);
+                redirectAttributes.addFlashAttribute("message", "File uploaded successfully");
+            }
+            return "redirect:/";
+//            return "All files successfully uploaded";
+        } catch (Exception e) {
+            return "Something went wrong while uploading files";
+        }
     }
 }
