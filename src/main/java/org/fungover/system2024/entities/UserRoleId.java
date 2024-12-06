@@ -33,5 +33,4 @@ public class UserRoleId implements Serializable {
     public int hashCode() {
         return Objects.hash(roleId, userId);
     }
-
 }
