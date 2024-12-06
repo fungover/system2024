@@ -33,5 +33,4 @@ public class RolePermissionId implements Serializable {
     public int hashCode() {
         return Objects.hash(permissionId, roleId);
     }
-
 }
