@@ -25,7 +25,7 @@ public class FileService {
         List<FileDTO> files = fileSearchRepository.findByNameFuzzy(name)
                 .stream()
                 .map(FileDTO::fromFile)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
 
         if (files.isEmpty()) {
             throw new IllegalArgumentException("No such files found");
