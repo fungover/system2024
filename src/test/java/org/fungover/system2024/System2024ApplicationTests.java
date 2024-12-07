@@ -9,6 +9,7 @@ import org.testcontainers.containers.MySQLContainer;
 @SpringBootTest
 class System2024ApplicationTests {
     static MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:9.1")
+            .withInitScript("file_test_schema.sql")
             .withDatabaseName("system24dbtest")
             .withUsername("myuser")
             .withPassword("secret");
