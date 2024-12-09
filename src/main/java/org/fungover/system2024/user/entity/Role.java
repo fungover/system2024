@@ -1,4 +1,4 @@
-package org.fungover.system2024.entities;
+package org.fungover.system2024.user.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
