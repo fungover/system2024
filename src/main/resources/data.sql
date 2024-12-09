@@ -20,7 +20,6 @@ VALUES (1, 'GET', 'Permission to perform GET operations (read data)'),
        (4, 'PUT', 'Permission to perform PUT operations (update full data)'),
        (5, 'DELETE', 'Permission to perform DELETE operations (delete data)');
 
-
 INSERT INTO user (id, name, email, password)
 VALUES (1, 'John Doe', 'john.doe@example.com', 'C@ndyFl0$$R0cket_ExTr3me!42'),
        (2, 'Jane Smith', 'jane.smith@example.com', 'Unic0rn$ushi-Slam@247%'),

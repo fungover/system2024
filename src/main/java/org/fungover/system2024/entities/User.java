@@ -1,6 +1,7 @@
 package org.fungover.system2024.entities;
 
 import jakarta.persistence.*;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
