@@ -20,12 +20,12 @@ public class User extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Size (max = 255)
+    @Size (max = 100)
     @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Size (max = 255)
+    @Size (max = 60)
     @NotNull
     @Column(name = "password", nullable = false, unique = true)
     private String password;
