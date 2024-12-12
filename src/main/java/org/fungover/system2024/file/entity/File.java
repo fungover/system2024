@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
@@ -19,14 +20,23 @@ public class File {
     @Column(name = "id")
     private Integer id;
 
+    @ColumnDefault("0")
+    @Column(name = "owner")
+    private Integer owner;
+
     @NotNull
     @Size(max = 255)
     @Column(name = "name", nullable = false)
     @FullTextField(analyzer = "text_analyzer")
     private String name;
 
+    @Size(max = 255)
     @NotNull
-    @Size(max = 2000)
-    @Column(name = "file_url", nullable = false)
-    private String fileUrl;
+    @Column(name = "stored_filename", nullable = false)
+    private String storedFilename;
+
+//    @ColumnDefault("0")
+    @Column(name = "soft_delete")
+    private Boolean softDelete = false;
+
 }
