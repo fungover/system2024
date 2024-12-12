@@ -2,24 +2,37 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '23'
           cache: maven
+
+      - name: Check for changes in Java source or test files (excluding frontend)
+        id: check_java_changes
+        run: |
+          git diff --exit-code --quiet -- src/main src/test || echo "Java source or test files have changed, running tests."
+
       - name: Compile with Maven
         run: mvn -B compile --file pom.xml
 
       - name: Test with Maven
+        if: steps.check_java_changes.outcome != 'success'
         run: mvn -B test --file pom.xml
+
+      - name: Skip tests if no Java or test files have changed
+        if: steps.check_java_changes.outcome == 'success'
+        run: echo "No Java or test files changed, skipping tests."
