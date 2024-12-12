@@ -15,9 +15,12 @@
             <fileNamePattern>logs/app-%d{yyyy-ww}.log</fileNamePattern>
             <!-- Deletes log-files every two weeks -->
             <maxHistory>2</maxHistory>
-            <!-- Clean up logs on start-up, maybe remove this? If app crashes logs might be useful? -->
-            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+
+
         </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>  <!-- When maxsize is reached a new log will be created -->
+        </triggeringPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
