@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -21,18 +21,22 @@ jobs:
           java-version: '23'
           cache: maven
 
-      - name: Check for changes in Java source or test files (excluding frontend)
+      - name: Check for changes in Java source or test files
         id: check_java_changes
         run: |
-          git diff --exit-code --quiet -- src/main src/test || echo "Java source or test files have changed, running tests."
+          if git diff --quiet HEAD^ HEAD -- src/main src/test; then
+            echo "changed=false" >> $GITHUB_ENV
+          else
+            echo "changed=true" >> $GITHUB_ENV
+          fi
 
       - name: Compile with Maven
         run: mvn -B compile --file pom.xml
 
       - name: Test with Maven
-        if: steps.check_java_changes.outcome != 'success'
+        if: env.changed == 'true'
         run: mvn -B test --file pom.xml
 
       - name: Skip tests if no Java or test files have changed
-        if: steps.check_java_changes.outcome == 'success'
+        if: env.changed != 'true'
         run: echo "No Java or test files changed, skipping tests."
