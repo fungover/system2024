@@ -15,7 +15,7 @@
             <fileNamePattern>logs/app-%d{yyyy-ww}.log</fileNamePattern>
             <!-- Deletes log-files every two weeks -->
             <maxHistory>2</maxHistory>
-            <!-- Clean up logs on start-up, maybye remove this? If app crashes logs might be useful? -->
+            <!-- Clean up logs on start-up, maybe remove this? If app crashes logs might be useful? -->
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
@@ -28,9 +28,13 @@
         <appender-ref ref="CONSOLE" />
     </root>
 
-    <!-- All loggers in controller-class will be stored in a file. -->
+    <!-- All loggers in controller-folder will be stored in a file. -->
     <logger name="org.fungover.system2024.controller" level="INFO">
         <appender-ref ref="FILE" />
     </logger>
+    <logger name="org.fungover.system2024.file.FileService" level="INFO">
+        <appender-ref ref="FILE" />
+    </logger>
+
 
 </configuration>

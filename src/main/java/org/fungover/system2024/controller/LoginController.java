@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @Controller
 public class LoginController {
 
-    Logger logger = LoggerFactory.getLogger(LoginController.class);
+   private final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @GetMapping("/")
     public String index(@AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal != null) {
