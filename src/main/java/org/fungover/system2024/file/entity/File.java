@@ -29,4 +29,8 @@ public class File {
     @Size(max = 2000)
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dc494cba (fixing issues that is blocking my tests, making new tests)
