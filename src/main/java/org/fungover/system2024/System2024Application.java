@@ -2,7 +2,6 @@ package org.fungover.system2024;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-// Detta är en testkommentar
 
 @SpringBootApplication
 public class System2024Application {
