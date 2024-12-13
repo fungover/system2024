@@ -6,7 +6,6 @@ target/
 lucene_indexes/
 .DS_Store
 frontend/node
-frontend/package-lock.json
 src/main/resources/static/*
 
 ### STS ###
