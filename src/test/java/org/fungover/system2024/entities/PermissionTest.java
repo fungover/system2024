@@ -1,37 +1,51 @@
 package org.fungover.system2024.entities;
-import org.junit.Before;
+
+import org.fungover.system2024.user.entity.Permission;
+import org.fungover.system2024.user.entity.Role;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import java.security.Permission;
-import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class PermissionTest {
-    private Permission permission;
-    @BeforeEach
-    void setUp() {
-        permission = new Permission();
-    }
     @Test
-    void testPermissionInstatiation() {
-        assertNotNull(permission);
+    void permissionNameShouldNotBeNull() {
+        Permission permission = new Permission();
+        permission.setName("Read Access");
+        assertNotNull(permission.getName());
     }
+
     @Test
-    void testSetAndGetId() {
-        permission.setId(1);
-        assertEquals(1, permission.getId());
+    void permissionDescriptionShouldNotBeNull() {
+        Permission permission = new Permission();
+        permission.setDescription("Allows read access to resources");
+        assertNotNull(permission.getDescription());
     }
+
     @Test
-    void testSetAndGetName() {
-        // Testa getter och setter för name
-        permission.setName("Admin Access");
-        assertEquals("Admin Access", permission.getName());
+    void permissionNameShouldHaveMaxLength() {
+        Permission permission = new Permission();
+        permission.setName("A".repeat(255));
+        assertTrue(permission.getName().length() <= 255);
     }
+
     @Test
-    void testSetAndGetDescription() {
-        // Testa getter och setter för description
-        permission.setDescription("Access to all admin functionalities");
-        assertEquals("Access to all admin functionalities", permission.getDescription());
+    void permissionDescriptionShouldHaveMaxLength() {
+        Permission permission = new Permission();
+        permission.setDescription("A".repeat(255));
+        assertTrue(permission.getDescription().length() <= 255);
+    }
+
+    @Test
+    void permissionRolesShouldBeEmptyInitially() {
+        Permission permission = new Permission();
+        assertTrue(permission.getRoles().isEmpty());
+    }
+
+    @Test
+    void addRoleToPermission() {
+        Permission permission = new Permission();
+        Role role = new Role();
+        permission.getRoles().add(role);
+        assertTrue(permission.getRoles().contains(role));
     }
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "user", schema = "system24db")
-public class User {
+public class User extends org.fungover.system2024.user.entity.User {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
