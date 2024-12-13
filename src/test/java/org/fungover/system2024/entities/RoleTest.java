@@ -8,7 +8,7 @@ import java.security.Permission;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RoleTest {
+ class RoleTest {
     @Test
     void roleNameShouldNotBeNull() {
         Role role = new Role();
