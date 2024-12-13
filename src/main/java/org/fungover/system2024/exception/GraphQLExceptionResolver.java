@@ -22,10 +22,10 @@ public class GraphQLExceptionResolver extends DataFetcherExceptionResolverAdapte
     }
     if (ex instanceof RuntimeException) {
       return GraphqlErrorBuilder.newError()
-          .errorType(ErrorType.INTERNAL_ERROR)  // Return INTERNAL_ERROR error type
-          .message("An unexpected error occurred: " + ex.getMessage())  // Include the message
-          .path(env.getExecutionStepInfo().getPath())  // Path to the GraphQL query
-          .location(env.getField().getSourceLocation())  // Location in the query
+          .errorType(ErrorType.INTERNAL_ERROR)
+          .message("An unexpected error occurred: " + ex.getMessage())
+          .path(env.getExecutionStepInfo().getPath())
+          .location(env.getField().getSourceLocation())
           .build();
     }
 
