@@ -1,0 +1,4 @@
+#test, can be removed later
+type Query {
+    hello: String
+}
