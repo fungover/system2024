@@ -1,4 +1,8 @@
-#test, can be removed later
 type Query {
-    hello: String
+    users: [User]
+}
+
+type User {
+    name: String!
+    email: String!
 }
