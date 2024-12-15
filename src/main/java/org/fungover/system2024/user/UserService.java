@@ -1,6 +1,8 @@
 package org.fungover.system2024.user;
 
+import org.fungover.system2024.notification.NotificationService;
 import org.fungover.system2024.user.dto.UserDto;
+import org.fungover.system2024.user.entity.User;
 import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,22 @@ import java.util.stream.Collectors;
 public class UserService {
   private final UserRepository userRepository;
 
-  public UserService(UserRepository userRepository) {
+  private final NotificationService notificationService;
+
+  public UserService(UserRepository userRepository, NotificationService notificationService) {
     this.userRepository = userRepository;
+    this.notificationService = notificationService;
   }
 
   public Set<UserDto> getAllUsers(){
     return userRepository.findAll().stream()
         .map(UserDto::from)
         .collect(Collectors.toSet());
+  }
+
+  public User saveUser(User user) {
+    User savedUser = userRepository.save(user);
+    notificationService.sendNotification(user.getFirst_name(), "profile created");
+    return savedUser;
   }
 }
