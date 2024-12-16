@@ -21,7 +21,7 @@ public class LoginController {
             logger.info("User '{}' logged in", userId);
 
             String userName = principal.getName();
-            if(userName != null && userName.equals("Agent-Smith")) {
+            if(userName != null && userName.equals("Neo")) {
                 logger.info("They are in");
             }
 
