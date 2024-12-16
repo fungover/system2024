@@ -3,8 +3,7 @@ package org.fungover.system2024.entities;
 import org.fungover.system2024.user.entity.Role;
 import org.junit.jupiter.api.Test;
 
-
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
  class RoleTest {
