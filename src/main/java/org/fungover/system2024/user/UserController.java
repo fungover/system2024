@@ -5,9 +5,7 @@ import org.fungover.system2024.user.entity.User;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -34,5 +32,14 @@ public class UserController {
       throw new RuntimeException("Error creating user: " + e.getMessage(), e);
     }
   }
-
+  @PutMapping("/update/{id}")
+  public String updateUser(@PathVariable Integer id, @RequestBody User user, Model model) {
+    try {
+      User updatedUser = userService.updateUser(id, user);
+      model.addAttribute("user", updatedUser);
+      return "user/update";
+    }catch (Exception e) {
+      throw new RuntimeException("Error updating user: " + e.getMessage(), e);
+    }
+  }
 }
