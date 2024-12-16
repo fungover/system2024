@@ -25,7 +25,6 @@ public class LoginController {
                 logger.info("They are in");
             }
 
-
         } else {
             model.addAttribute("name", "Guest");
         }
