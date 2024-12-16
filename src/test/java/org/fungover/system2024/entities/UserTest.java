@@ -1,5 +1,6 @@
 package org.fungover.system2024.entities;
 
+import org.fungover.system2024.user.entity.User;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,8 +9,8 @@ class UserTest {
     @Test
     void userNameShouldBeWithinMaxLength() {
         User user = new User();
-        user.setName("A".repeat(255));
-        assertEquals(255, user.getName().length());
+        user.setFirst_name("A".repeat(255));
+        assertEquals(255, user.getFirst_name().length());
     }
 
     @Test
