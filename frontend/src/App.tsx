@@ -2,8 +2,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {Link} from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function App() {
+    const { t, i18n } = useTranslation();
+
+    const handleChangeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+    };
 
   return (
       <>
@@ -15,10 +21,19 @@ function App() {
                   <img src={reactLogo} className="logo react" alt="React logo"/>
               </a>
           </div>
-          <h1>Vite + React</h1>
-          <Link to='/cake'>Visit /cake</Link>
+          <h1>{t('welcome')}</h1> {/* Translated welcome text */}
+
+          <div>
+              <button onClick={() => handleChangeLanguage('en')}>English</button>
+              <button onClick={() => handleChangeLanguage('sv')}>Svenska</button>
+              <button onClick={() => handleChangeLanguage('es')}>Español</button>
+          </div>
+
+          <div className="card">
+              <Link to='/cake'>{t('visitCake')}</Link> {}
+          </div>
       </>
-  )
+  );
 }
 
-export default App
+export default App;
