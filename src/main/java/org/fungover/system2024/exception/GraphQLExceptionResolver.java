@@ -20,16 +20,12 @@ public class GraphQLExceptionResolver extends DataFetcherExceptionResolverAdapte
           .location(env.getField().getSourceLocation())
           .build();
     }
-    if (ex instanceof RuntimeException) {
+
       return GraphqlErrorBuilder.newError()
-          .errorType(ErrorType.INTERNAL_ERROR)
-          .message("An unexpected error occurred: " + ex.getMessage())
-          .path(env.getExecutionStepInfo().getPath())
-          .location(env.getField().getSourceLocation())
-          .build();
-    }
-
-      return null;
-
+        .errorType(ErrorType.INTERNAL_ERROR)
+        .message("An unexpected error occurred: " + ex.getMessage())
+        .path(env.getExecutionStepInfo().getPath())
+        .location(env.getField().getSourceLocation())
+        .build();
   }
 }
