@@ -4,7 +4,6 @@ import org.fungover.system2024.exception.ResourceNotFoundException;
 import org.fungover.system2024.user.UserController;
 import org.fungover.system2024.user.UserService;
 import org.fungover.system2024.user.dto.UserDto;
-import org.fungover.system2024.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -50,8 +49,13 @@ public class UserControllerIntTest {
     graphQlTester.document(document)
         .execute()
         .path("users")
-        .entityList(User.class)
-        .hasSize(1);
+        .entityList(UserDto.class)
+        .hasSize(1)
+        .satisfies(users -> {
+          UserDto user = users.getFirst();
+          assertThat(user.name()).isEqualTo("Test Testsson");
+          assertThat(user.email()).isEqualTo("test@test.test");
+        });
   }
 
   @Test
