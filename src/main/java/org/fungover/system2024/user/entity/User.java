@@ -13,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "user", schema = "system24db")
 public class User extends BaseEntity {
 
     @Size(max = 255)

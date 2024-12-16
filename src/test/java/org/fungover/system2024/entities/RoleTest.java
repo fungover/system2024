@@ -1,6 +1,7 @@
 package org.fungover.system2024.entities;
 
 import org.fungover.system2024.user.entity.Role;
+import org.fungover.system2024.user.entity.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
