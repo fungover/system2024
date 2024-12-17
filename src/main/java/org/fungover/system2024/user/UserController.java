@@ -1,8 +1,6 @@
 package org.fungover.system2024.user;
 
 import org.fungover.system2024.user.dto.UserDto;
-import org.fungover.system2024.user.entity.User;
-import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -16,7 +14,5 @@ public class UserController {
   }
 
   @QueryMapping
-  Iterable<UserDto> users(){
-    return userService.getAllUsers();
-  }
+  Iterable<UserDto> users(){ return userService.getAllUsers(); }
 }
