@@ -8,8 +8,8 @@ interface UserPageProps {
 
 function UsersPage(){
     const [users, setUsers] = useState<UserPageProps[]>([]);
-    async function fetchAllUsers(): Promise<UserPageProps[]> {
-        const listOfUsers = [];
+    async function fetchAllUsers(): Promise<void> {
+
 
   let loot = await fetch('http://localhost:8080/graphql',{
       method: 'POST',
@@ -25,20 +25,15 @@ function UsersPage(){
           }`
       })
   } )
-    console.log(users)
         const payload = await loot.json();
-  listOfUsers.push(payload.data);
-  return listOfUsers;
+
+        setUsers(payload.data.users);
+
 
     }
 
     useEffect(() => {
-        const getAllUsers = async ()=>{
-            const listOfUsers = await fetchAllUsers();
-            setUsers(listOfUsers);
-        }
-
-        getAllUsers()
+       fetchAllUsers()
 
     }, []);
     return(
@@ -55,7 +50,7 @@ function UsersPage(){
                             ))}
                         </ul>
                     ) : (
-                        <p>Loading users...</p>
+                        <p className="animate-spin">Loading users...</p>
                     )}
                 </div>
 
