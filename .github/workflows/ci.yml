@@ -3,15 +3,16 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - "frontend/**"
-      - "src/main/resources/static/**"
+    paths:
+      - "src/**"
+      - "!frontend/**"
+      - "!src/main/resources/static/**"
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-      - "frontend/**"
-      - "src/main/resources/static/**"
-      - ".github/**"
+    paths:
+      - "src/**"
+      - "!frontend/**"
+      - "!src/main/resources/static/**"
 
 jobs:
   build:
