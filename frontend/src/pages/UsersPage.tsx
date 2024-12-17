@@ -7,10 +7,11 @@ interface UserPageProps {
 
 function UsersPage() {
     const [users, setUsers] = useState<UserPageProps[]>([]);
+    const apiUrl = import.meta.env.VITE_USERS_URL;
 
     async function fetchAllUsers(): Promise<void> {
         try {
-            const response = await fetch('http://localhost:8080/graphql', {
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
