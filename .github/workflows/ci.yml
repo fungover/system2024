@@ -4,13 +4,15 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "src/"
+      - "src/**"
+      - "pom.xml"
       - "!frontend/"
       - "!src/main/resources/static/"
   pull_request:
     branches: [ "main" ]
     paths:
-      - "src/"
+      - "src/**"
+      - "pom.xml"
       - "!frontend/"
       - "!src/main/resources/static/"
 
