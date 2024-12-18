@@ -17,8 +17,8 @@ class RoleTest {
     @Test
     void roleNameShouldHaveMaxLength() {
         Role role = new Role();
-        role.setName("A".repeat(255));
-        assertDoesNotThrow(() -> role.getName().length() <= 255);
+        assertDoesNotThrow(() -> role.setName("A".repeat(255)));
+        assertEquals(255, role.getName().length());
         assertThrows(IllegalArgumentException.class, () -> role.setName("A".repeat(256)));
     }
 
