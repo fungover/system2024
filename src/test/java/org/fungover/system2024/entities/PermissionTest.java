@@ -46,6 +46,8 @@ class PermissionTest {
         Permission permission = new Permission();
         Role role = new Role();
         permission.getRoles().add(role);
+        role.getPermissions().add(permission);
         assertTrue(permission.getRoles().contains(role));
+        assertTrue(role.getPermissions().contains(permission), "Bidirectional relationship not maintained");
     }
 }

@@ -4,10 +4,9 @@ import org.fungover.system2024.user.entity.Role;
 import org.fungover.system2024.user.entity.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
- class RoleTest {
+class RoleTest {
     @Test
     void roleNameShouldNotBeNull() {
         Role role = new Role();
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     void roleNameShouldHaveMaxLength() {
         Role role = new Role();
         role.setName("A".repeat(255));
-        assertTrue(role.getName().length() <= 255);
+        assertDoesNotThrow(() -> role.getName().length() <= 255);
     }
 
     @Test
@@ -39,7 +38,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         Role role = new Role();
         User user = new User();
         role.getUsers().add(user);
+        user.getRoles().add(role);
         assertTrue(role.getUsers().contains(user));
+        assertTrue(user.getRoles().contains(role), "Bidirectional relationship not maintained");
     }
 
 

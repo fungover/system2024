@@ -14,6 +14,13 @@ class UserTest {
     }
 
     @Test
+    void userLastNameShouldBeWithinMaxLength() {
+        User user = new User();
+        user.setLast_name("A".repeat(255));
+        assertEquals(255, user.getLast_name().length());
+    }
+
+    @Test
     void userEmailShouldBeWithinMaxLength() {
         User user = new User();
         user.setEmail("A".repeat(100));
