@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS file(
         PRIMARY KEY,
     owner INT
             DEFAULT 000,
-    name VARCHAR(255)
+    original_filename VARCHAR(255)
         CHARACTER SET utf8mb4
             COLLATE utf8mb4_unicode_ci NOT NULL,
     stored_filename VARCHAR(255)

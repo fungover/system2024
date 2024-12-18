@@ -1,5 +1,6 @@
 package org.fungover.system2024.fileupload;
 
+import org.fungover.system2024.file.FileDTO;
 import org.fungover.system2024.file.FileRepository;
 import org.fungover.system2024.file.entity.File;
 import org.fungover.system2024.fileupload.Exceptions.StorageException;
@@ -27,18 +28,29 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService {
 
-    private final Path rootLocation;
+//    private final Path rootLocation;
+    private FileRepository fileRepository;
 
-    public FileSystemStorageService(@Value("${storage.location}") String location,
-                                    FileRepository fileRepository) {
-        this.rootLocation = Paths.get(location);
+//        this.rootLocation = Paths.get(location);
+
+    @Value("${storage.location}")
+    private Path rootLocation;
+
+    public FileSystemStorageService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
+
+    @Override
+    public  String getSafeName(Integer fileId) {
+        return fileRepository.getStoredFilenameWhereIdIs(fileId);
+    }
+
+@Override
+public File getFileData(Integer fileId) {
+        return fileRepository.getFileById(fileId);
+}
     @Autowired
-    private FileRepository fileRepository;
-
-
 
     @Override
     public void store(List<MultipartFile> files) {
@@ -67,7 +79,7 @@ public class FileSystemStorageService implements StorageService {
                     ////                // Save metadata to the database
                     File metadata = new File();
                     metadata.setOwner(userId);
-                    metadata.setName(file.getOriginalFilename());
+                    metadata.setOriginalFilename(file.getOriginalFilename());
                     metadata.setStoredFilename(storedFilename);
                     fileRepository.save(metadata);
                 } catch (IOException e) {

@@ -9,6 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
+import java.util.zip.ZipEntry;
+
 @Entity
 @Table(name = "file", schema = "system24db")
 @Indexed
@@ -26,9 +28,9 @@ public class File {
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "name", nullable = false)
+    @Column(name = "original_filename", nullable = false)
     @FullTextField(analyzer = "text_analyzer")
-    private String name;
+    private String originalFilename;
 
     @Size(max = 255)
     @NotNull
@@ -38,5 +40,6 @@ public class File {
 //    @ColumnDefault("0")
     @Column(name = "soft_delete")
     private Boolean softDelete = false;
+
 
 }

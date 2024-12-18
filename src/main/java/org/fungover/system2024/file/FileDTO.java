@@ -2,7 +2,7 @@ package org.fungover.system2024.file;
 
 import org.fungover.system2024.file.entity.File;
 
-public record FileDTO(Integer id, Integer owner, String name, String storedFilename ) {
+public record FileDTO(Integer id, Integer owner, String originalName, String storedFilename ) {
     public static FileDTO fromFile(File file) {
         if (file == null) {
             throw new IllegalArgumentException("File is null");
@@ -10,7 +10,7 @@ public record FileDTO(Integer id, Integer owner, String name, String storedFilen
             return new FileDTO(
                     file.getId(),
                     file.getOwner(),
-                    file.getName(),
+                    file.getOriginalFilename(),
                     file.getStoredFilename()
             );
     }
