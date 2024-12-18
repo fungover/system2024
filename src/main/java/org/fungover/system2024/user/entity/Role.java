@@ -30,4 +30,11 @@ public class Role extends BaseEntity {
       inverseJoinColumns = @JoinColumn(
           name = "permission_id", referencedColumnName = "id"))
   private Set<Permission> permissions = new LinkedHashSet<>();
+
+  public void setName(String name) {
+    if (name.length() > 255) {
+      throw new IllegalArgumentException("Name cannot be longer than 255 characters");
+    }
+    this.name = name;
+  }
 }
