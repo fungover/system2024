@@ -1,3 +1,5 @@
+USE system24db;
+
 CREATE TABLE IF NOT EXISTS user
 (
     id       INT AUTO_INCREMENT PRIMARY KEY,
