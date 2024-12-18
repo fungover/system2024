@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 import java.util.Set;
 
 @GraphQlTest(UserController.class)
-public class UserControllerIntTest {
+class UserControllerIntTest {
 
   @Autowired
   GraphQlTester graphQlTester;
@@ -80,7 +80,7 @@ public class UserControllerIntTest {
           assertThat(errors).hasSize(1);
           assertThat(errors.getFirst().getMessage()).contains("No users found");
           assertThat(errors.getFirst().getPath()).isEqualTo("users");
-          assertThat(errors.getFirst().getErrorType().toString()).isEqualTo("NOT_FOUND");
+          assertThat(errors.getFirst().getErrorType()).hasToString("NOT_FOUND");
         });
   }
 
@@ -106,7 +106,7 @@ public class UserControllerIntTest {
           assertThat(errors).hasSize(1);
           assertThat(errors.getFirst().getMessage()).contains("An unexpected error occurred: Unexpected exception"); //null is typically replaced with the error message
           assertThat(errors.getFirst().getPath()).isEqualTo("users");
-          assertThat(errors.getFirst().getErrorType().toString()).isEqualTo("INTERNAL_ERROR");
+          assertThat(errors.getFirst().getErrorType()).hasToString("INTERNAL_ERROR");
         });
   }
 
