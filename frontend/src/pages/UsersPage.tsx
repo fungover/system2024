@@ -70,7 +70,7 @@ function UsersPage() {
                         ))}
                     </ul>
                 ) : (
-                    <p>No one uses our application =(</p>
+                    <p>No users found. Please check back later</p>
                 )}
             </div>
         </section>
