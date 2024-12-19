@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: kappsegla/system2024:sha-82bdaf2
+          image: kappsegla/system2024:sha-78e30b0
           ports:
             - containerPort: 8080
           livenessProbe:
