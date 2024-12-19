@@ -1,3 +1,0 @@
-2024-12-12 09:56:44 [http-nio-8080-exec-7] INFO  o.f.s.controller.LoginController - User '123842543' logged in
-2024-12-12 09:57:47 [http-nio-8080-exec-1] INFO  o.f.s.controller.LoginController - User '123842543' logged in
-2024-12-12 09:58:12 [http-nio-8080-exec-10] INFO  o.f.s.controller.LoginController - User '123842543' logged in
