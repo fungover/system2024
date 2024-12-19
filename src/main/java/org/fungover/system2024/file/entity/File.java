@@ -30,5 +30,3 @@ public class File {
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
 }
-}
-}
