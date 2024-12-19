@@ -8,7 +8,12 @@ i18n.use(initReactI18next).init({
                 "welcome": "Welcome to React",
                 "changeLanguage": "Change Language",
                 "visitCake": "Visit /cake",
-                "cakeText": "Enjoy a delicious cake!"
+                "cakeText": "Enjoy a delicious cake!",
+                "languages": {
+                    "en": "English",
+                    "sv": "Swedish",
+                    "es": "Spanish"
+                }
             },
         },
         sv: {
@@ -16,7 +21,12 @@ i18n.use(initReactI18next).init({
                 "welcome": "Välkommen till React",
                 "changeLanguage": "Byt språk",
                 "visitCake": "Besök /cake",
-                "cakeText": "Njut av en läcker tårta!"
+                "cakeText": "Njut av en läcker tårta!",
+                "languages": {
+                    "en": "Engelska",
+                    "sv": "Svenska",
+                    "es": "Spanska"
+                }
             },
         },
         es: {
@@ -24,7 +34,12 @@ i18n.use(initReactI18next).init({
                 "welcome": "Bienvenido a React",
                 "changeLanguage": "Cambiar idioma",
                 "visitCake": "Visitar /cake",
-                "cakeText": "¡Disfruta de una deliciosa tarta!"
+                "cakeText": "¡Disfruta de una deliciosa tarta!",
+                "languages": {
+                    "en": "Inglés",
+                    "sv": "Sueco",
+                    "es": "Español"
+                }
             },
         },
     },
