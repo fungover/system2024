@@ -51,3 +51,6 @@ http://localhost:8080/logout
 spring.profiles.active=production  
 spring.profiles.active=development
 ```
+
+## Swagger UI Documentation
+- Swagger UI can be accessed at: http://localhost:8080/swagger-ui.html.
