@@ -7,5 +7,4 @@ CREATE TABLE IF NOT EXISTS file(
     file_url TEXT
         CHARACTER SET utf8mb4
             COLLATE utf8mb4_unicode_ci NOT NULL
-)
 );

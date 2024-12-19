@@ -2,8 +2,8 @@ package org.fungover.system2024.user.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +29,7 @@ public class User extends BaseEntity {
 
     @Size (max = 100)
     @NotBlank
+    @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
