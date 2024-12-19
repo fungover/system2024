@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 @Configuration
@@ -51,6 +50,7 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessHandler(logoutSuccessHandler())
                 )
+
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/github"),

@@ -2,9 +2,20 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
+    paths:
+      - "src/**"
+      - "pom.xml"
+      - "!frontend/"
+      - "!src/main/resources/static/"
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
+    paths:
+      - "src/**"
+      - "pom.xml"
+      - "!frontend/"
+      - "!src/main/resources/static/"
+
 
 jobs:
   build:
@@ -32,11 +43,5 @@ jobs:
 
       - name: Compile with Maven
         run: mvn -B compile --file pom.xml
-
       - name: Test with Maven
-        if: env.changed == 'true'
         run: mvn -B test --file pom.xml
-
-      - name: Skip tests if no Java or test files have changed
-        if: env.changed != 'true'
-        run: echo "No Java or test files changed, skipping tests."
