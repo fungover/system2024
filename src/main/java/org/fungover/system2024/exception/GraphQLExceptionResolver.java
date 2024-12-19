@@ -21,7 +21,9 @@ public class GraphQLExceptionResolver extends DataFetcherExceptionResolverAdapte
           .build();
     }
 
-      return GraphqlErrorBuilder.newError()
+    //Add more GraphQL exceptions to resolve here...
+
+    return GraphqlErrorBuilder.newError()
         .errorType(ErrorType.INTERNAL_ERROR)
         .message("An unexpected error occurred: " + ex.getMessage())
         .path(env.getExecutionStepInfo().getPath())
