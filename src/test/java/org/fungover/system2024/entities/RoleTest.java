@@ -130,4 +130,24 @@ class RoleTest {
         assertFalse(role.getPermissions().contains(permission), "Permission should be removed from Role");
         assertFalse(permission.getRoles().contains(role), "Role should be removed from Permission");
     }
+
+    @Test
+    void removeUserFromRole() {
+        Role role = new Role();
+        role.setName("ValidName");
+        User user = new User();
+        user.setFirst_name("ValidFirstName");
+        user.setLast_name("ValidLastName");
+        user.setEmail("valid.email@gmail.com");
+        user.setPassword("ValidPassword");
+
+        role.getUsers().add(user);
+        user.getRoles().add(role);
+
+        role.getUsers().remove(user);
+        user.getRoles().remove(role);
+
+        assertFalse(role.getUsers().contains(user), "User should be removed from Role");
+        assertFalse(user.getRoles().contains(role), "Role should be removed from User");
+    }
 }
