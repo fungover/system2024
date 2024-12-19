@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PermissionTest {
+class PermissionTests {
 
     private static Validator validator;
     private static ValidatorFactory factory;
