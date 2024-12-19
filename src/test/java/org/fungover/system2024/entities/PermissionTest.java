@@ -119,4 +119,22 @@ class PermissionTest {
         assertTrue(permission.getRoles().contains(role));
         assertTrue(role.getPermissions().contains(permission), "Bidirectional relationship not maintained");
     }
+
+    @Test
+    void removeRoleFromPermission() {
+        Permission permission = new Permission();
+        permission.setName("ValidName");
+        permission.setDescription("ValidDescription");
+        Role role = new Role();
+        role.setName("ValidRoleName");
+
+        permission.getRoles().add(role);
+        role.getPermissions().add(permission);
+
+        permission.getRoles().remove(role);
+        role.getPermissions().remove(permission);
+
+        assertFalse(permission.getRoles().contains(role), "Role should be removed from Permission");
+        assertFalse(role.getPermissions().contains(permission), "Permission should be removed from Role");
+    }
 }
