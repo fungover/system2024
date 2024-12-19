@@ -45,4 +45,18 @@ public class User extends BaseEntity {
     inverseJoinColumns = @JoinColumn(
         name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new LinkedHashSet<>();
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!first_name.equals(user.first_name)) return false;
+        if (!last_name.equals(user.last_name)) return false;
+        if (!email.equals(user.email)) return false;
+        return password.equals(user.password);
+    }
 }
