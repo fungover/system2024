@@ -1,5 +1,3 @@
-USE system24db;
-
 CREATE TABLE IF NOT EXISTS file(
     id INT AUTO_INCREMENT
         PRIMARY KEY,
