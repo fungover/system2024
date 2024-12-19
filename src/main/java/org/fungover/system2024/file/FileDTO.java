@@ -7,9 +7,9 @@ public record FileDTO(String name, String fileUrl) {
         if (file == null) {
             throw new IllegalArgumentException("File is null");
         }
-            return new FileDTO(
-                    file.getName(),
-                    file.getFileUrl()
-            );
+        return new FileDTO(
+                file.getName(),
+                file.getFileUrl()
+        );
     }
 }

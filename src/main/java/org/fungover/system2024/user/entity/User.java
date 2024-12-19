@@ -2,7 +2,8 @@ package org.fungover.system2024.user.entity;
 
 import jakarta.persistence.*;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,26 +14,26 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "user", schema = "system24db")
 public class User extends BaseEntity {
 
     @Size(max = 255)
-    @NotNull
+    @NotBlank
     @Column(name = "first_name", nullable = false)
     private String first_name;
 
     @Size(max = 255)
-    @NotNull
+    @NotBlank
     @Column(name = "last_name", nullable = false)
     private String last_name;
 
     @Size (max = 100)
-    @NotNull
+    @NotBlank
+    @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Size (max = 60)
-    @NotNull
+    @NotBlank
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
