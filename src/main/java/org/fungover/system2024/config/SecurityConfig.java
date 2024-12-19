@@ -17,12 +17,6 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final String baseUrl;
-
-    public SecurityConfig(@Value("${app.baseUrl}") String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-
     @Bean
     @Profile("development")
     public SecurityFilterChain developmentSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -43,24 +37,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated() // Require authentication for all requests
                 )
-                .oauth2Login(Customizer.withDefaults())
-                .logout((logout) -> logout
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessHandler(logoutSuccessHandler())
-                )
-                .exceptionHandling((exceptions) -> exceptions
-                        .defaultAuthenticationEntryPointFor(
-                                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/github"),
-                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-                        ));
+                .oauth2Login(Customizer.withDefaults());
         return http.build();
     }
 
-    private LogoutSuccessHandler logoutSuccessHandler() {
-        return ((request, response, authentication) ->
-                response.sendRedirect(baseUrl + "/login"));
-    }
 }

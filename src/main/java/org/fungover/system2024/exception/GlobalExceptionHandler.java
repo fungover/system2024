@@ -5,6 +5,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
@@ -18,5 +19,5 @@ public class GlobalExceptionHandler {
         problemDetails.setType(URI.create("http://localhost:8080/errors/general-error"));
         problemDetails.setTitle("General Error");
         return problemDetails;
+        }
     }
-}
