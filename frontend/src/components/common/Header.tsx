@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import MenuItems from "./MenuItems";
-import MenuItemsMobile from "../MenuItemsMobile";
+import MenuItemsMobile from "./MenuItemsMobile";
 
 export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
