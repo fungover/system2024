@@ -6,7 +6,7 @@ ARG JAR_FILE=/app/target/*.jar
 RUN cp ${JAR_FILE} application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM eclipse-temurin:23.0.1-jre
+FROM eclipse-temurin:23-jre
 EXPOSE 8080
 WORKDIR /application
 COPY --from=builder application/dependencies/ ./
