@@ -1,5 +1,5 @@
 package org.fungover.system2024.entities;
-
+import jakarta.validation.*;
 import org.fungover.system2024.user.entity.Permission;
 import org.fungover.system2024.user.entity.Role;
 import org.junit.jupiter.api.AfterAll;

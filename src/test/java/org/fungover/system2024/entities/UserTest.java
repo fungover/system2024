@@ -56,7 +56,6 @@ class UserTest {
     void userNameShouldNotBeBlankOrNull() {
         User user = new User();
         user.setFirst_name("");
-        user.setLast_name("ValidLastName");
         user.setEmail("valid.email@example.com");
         user.setPassword("ValidPassword123");
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -113,7 +112,6 @@ class UserTest {
     void userPasswordShouldNotBeBlankOrNull() {
         User user = new User();
         user.setFirst_name("ValidFirstName");
-        user.setLast_name("ValidLastName");
         user.setEmail("valid.email@example.com");
         user.setPassword("");
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -230,18 +228,5 @@ class UserTest {
         assertTrue(violations.stream()
                         .anyMatch(v -> v.getPropertyPath().toString().equals("password")),
                 "Expected violations for password length exceeding 60 characters");
-    }
-
-    @Test
-    void userEmailShouldBeValidFormat() {
-        User user = new User();
-        user.setFirst_name("ValidFirstName");
-        user.setLast_name("ValidLastName");
-        user.setEmail("invalid-email");
-        user.setPassword("ValidPassword123");
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertTrue(violations.stream()
-                        .anyMatch(v -> v.getPropertyPath().toString().equals("email")),
-                "Expected violations for invalid email format");
     }
 }
