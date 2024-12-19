@@ -1,3 +1,4 @@
+
 CREATE TABLE IF NOT EXISTS user
 (
     id       INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS permission
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
     description TEXT
+
 );
 
 CREATE TABLE IF NOT EXISTS role_permission
