@@ -1,6 +1,7 @@
 import { FaInstagram } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
+import FootermenuItems from "./FootermenuItems";
 
 export default function Footer() {
   return (
@@ -8,17 +9,13 @@ export default function Footer() {
       <div className="min-[520px]:flex min-[520px]:justify-between min-[520px]:pr-16 sm:pr-0 sm:gap-8 md:gap-16 lg:gap-24 xl:gap-32 2xl:gap-40 3xl:gap-48">
         <div className="mb-5 sm:mb-0">
           <h2 className="text-xl font-bold mb-2">Navigering</h2>
-          <ul className="">
-            <a href="/">
-              <li>Home</li>
-            </a>
-            <a href="/">
-              <li>About</li>
-            </a>
-            <a href="/">
-              <li>Contact</li>
-            </a>
-          </ul>
+          <FootermenuItems
+            menuItems={[
+              { title: "Home", url: "#" },
+              { title: "About", url: "#" },
+              { title: "Contact", url: "#" },
+            ]}
+          />
         </div>
         <div className="">
           <h2 className="text-xl font-bold mb-2">Social Media</h2>
