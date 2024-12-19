@@ -1,5 +1,6 @@
 package org.fungover.system2024.controller;
 
+
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Controller
 public class LoginController {
+
 
    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @GetMapping("/")
@@ -24,7 +26,6 @@ public class LoginController {
             if(userName != null && userName.equals("Agent-Smith")) {
                 logger.info("They are in");
             }
-
 
         } else {
             model.addAttribute("name", "Guest");
