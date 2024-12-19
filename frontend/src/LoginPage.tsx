@@ -1,0 +1,16 @@
+
+function LoginPage() {
+    return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+            <h1 className="text-3xl font-bold mb-6 text-gray-800">Welcome to System2024!</h1>
+            <p className="mb-8 text-gray-600">Sign in with your GitHub account to continue</p>
+            <a href="/oauth2/authorization/github">
+                <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">Sign in with
+                    GitHub
+                </button>
+            </a>
+        </div>
+    );
+}
+
+export default LoginPage;
