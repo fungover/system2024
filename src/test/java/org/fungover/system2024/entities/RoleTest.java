@@ -2,7 +2,7 @@ package org.fungover.system2024.entities;
 import jakarta.validation.*;
 import org.fungover.system2024.user.entity.Role;
 import org.fungover.system2024.user.entity.User;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -13,10 +13,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoleTest {
 
     private static Validator validator;
+    private static ValidatorFactory factory;
+
     @BeforeAll
     static void setUpValidator() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+    }
+
+    @AfterAll
+    static void tearDown() {
+        factory.close();
     }
 
     @Test
@@ -54,7 +61,7 @@ class RoleTest {
         role.setName("ValidName");
         Set<ConstraintViolation<Role>> violations = validator.validate(role);
         assertTrue(violations.isEmpty(), "Expected no violations for a new Role object");
-        assertTrue(role.getUsers().isEmpty(),"Expected permissions to be empty for a new Role object");
+        assertTrue(role.getPermissions().isEmpty(),"Expected permissions to be empty for a new Role object");
     }
 
     @Test
