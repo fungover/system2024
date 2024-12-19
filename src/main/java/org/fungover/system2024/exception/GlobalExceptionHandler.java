@@ -16,7 +16,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ProblemDetail handleException(Exception ex) {
         ProblemDetail problemDetails = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
-        problemDetails.setType(URI.create("http://localhost:8080/errors/general-error"));
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        problemDetails.setType(URI.create(baseUrl + "/errors/general-error"));
         problemDetails.setTitle("General Error");
         return problemDetails;
         }
