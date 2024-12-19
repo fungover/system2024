@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
+import MenuItems from "./MenuItems";
+import MenuItemsMobile from "./MenuItemsMobile";
 
 export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
@@ -7,6 +9,22 @@ export default function Header() {
   const handleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
+
+
+  const menuItems = [
+    {
+      title: "Home",
+      url: "/",
+    },
+    {
+      title: "About",
+      url: "/",
+    },
+    {
+      title: "Contact",
+      url: "/",
+    },
+  ];
 
   return (
     <>
@@ -41,6 +59,7 @@ export default function Header() {
                   </li>
                 </ul>
               </nav>
+              <MenuItems menuItems={menuItems} />
             </div>
             <div className="flex items-center">
               <img
