@@ -7,6 +7,8 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from 'react-router-dom';
+import './i18n';
+import CakePage from './CakePage';
 
 const router = createBrowserRouter([
     {
@@ -15,7 +17,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/cake',
-        element: <div style={{ fontSize: 150 }}>🍰</div>,
+        element: <CakePage />,
     },
     {
         path:'/users',
