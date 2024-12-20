@@ -43,3 +43,31 @@ http://localhost:8080/logout
 spring.profiles.active=production  
 spring.profiles.active=development
 ```
+
+## Steps to Generate an App Password
+### 1. Log in to your Google Account: 
+### 2. Navigate to the Security Page: 
+1. After logging in, click on "Security" in the left navigation panel. 
+### 3. Enable Two-Factor Authentication: 
+1. Find the "2-Step Verification" section and click "Get Started." 
+   Follow the on-screen instructions to enable two-factor authentication. 
+   If you have already enabled it, skip this step. 
+### 4. Generate an App Password:
+1. Return to the "Security" page and find the "App passwords" section. 
+2. If you cannot find the "App passwords" section, type "App passwords" into the search bar. 
+3. Click on the "App passwords" link. You may be asked to log in again. 
+4. From the "Select app" dropdown menu, choose "Mail," and from 
+   the "Select device" dropdown menu, choose "Other (Custom name)." 
+   Enter a name (e.g., Spring Boot App) and click "Generate." 
+5. A 16-character app password will be displayed. Copy this 
+   password and set it in the .env file as MAIL_PASSWORD. 
+
+#### Configuration for Gmail Users
+Add them to .env file in the root of the project 
+```
+MAIL_HOST=smtp.gmail.com 
+MAIL_PORT=587 
+MAIL_USERNAME= (replace your gmail adress) 
+MAIL_PASSWORD=(replace with your generated app password) 
+NOTIFICATION_EMAIL_RECIPIENT=(replace your gmail adress)
+```
