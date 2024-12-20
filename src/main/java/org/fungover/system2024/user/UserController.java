@@ -18,9 +18,7 @@ public class UserController {
   }
 
   @QueryMapping
-  Iterable<UserDto> users(){
-    return userService.getAllUsers();
-  }
+  Iterable<UserDto> users(){ return userService.getAllUsers(); }
 
   @PostMapping("/create")
   public String createUser(@RequestBody User user, Model model) {

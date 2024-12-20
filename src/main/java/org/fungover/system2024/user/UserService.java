@@ -1,5 +1,7 @@
 package org.fungover.system2024.user;
 
+import lombok.extern.slf4j.Slf4j;
+import org.fungover.system2024.exception.ResourceNotFoundException;
 import org.fungover.system2024.notification.NotificationService;
 import org.fungover.system2024.user.dto.UserDto;
 import org.fungover.system2024.user.entity.User;
@@ -7,11 +9,11 @@ import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserService {
   private final UserRepository userRepository;
@@ -26,10 +28,18 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public Set<UserDto> getAllUsers(){
-    return userRepository.findAll().stream()
+  public Set<UserDto> getAllUsers() {
+
+    Set<UserDto> users = userRepository.findAll().stream()
         .map(UserDto::from)
         .collect(Collectors.toSet());
+
+    if (users.isEmpty()) {
+      log.warn("No users found in database");
+      throw new ResourceNotFoundException("No users found in database");
+    }
+
+    return users;
   }
 
   public User saveUser(User user) {

@@ -1,3 +1,11 @@
+**Build Frontend as part of Maven lifecycle**
+
+**Run Maven Command:**
+Use the following Maven command to install Node.js, npm, and the frontend dependencies:
+
+   `mvn clean compile`
+
+---
 BE/FE strucutre to increase seperation.
 FE is React using Vite install.
 -npm run dev => runs React only,
@@ -42,6 +50,10 @@ http://localhost:8080/logout
 ```
 spring.profiles.active=production  
 spring.profiles.active=development
+
+## Swagger UI Documentation
+- Swagger UI can be accessed at: http://localhost:8080/swagger-ui.html.
+
 ```
 
 ## Steps to Generate an App Password
