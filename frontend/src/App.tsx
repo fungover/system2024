@@ -1,24 +1,21 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {Link} from "react-router-dom";
+import Header from "./components/common/Header";
+import Footer from "./components/common/Footer";
+
 
 function App() {
-
   return (
-      <>
-          <div>
-              <a href="https://vite.dev" target="_blank">
-                  <img src={viteLogo} className="logo" alt="Vite logo"/>
-              </a>
-              <a href="https://react.dev" target="_blank">
-                  <img src={reactLogo} className="logo react" alt="React logo"/>
-              </a>
+    <>
+      <div className="w-full">
+        <Header />
+        <main className="w-full">
+          <div className="min-h-screen w-full">
+            <h1 className="my-40 text-center">WEBPAGE</h1>
           </div>
-          <h1>Vite + React</h1>
-          <Link to='/cake'>Visit /cake</Link>
-      </>
-  )
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
