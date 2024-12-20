@@ -3,23 +3,45 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - "src/**"
+      - "pom.xml"
+      - "!frontend/"
+      - "!src/main/resources/static/"
   pull_request:
     branches: [ "main" ]
+    paths:
+      - "src/**"
+      - "pom.xml"
+      - "!frontend/"
+      - "!src/main/resources/static/"
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '23'
           cache: maven
+
+      - name: Check for changes in Java source or test files
+        id: check_java_changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- src/main src/test; then
+            echo "changed=false" >> $GITHUB_ENV
+          else
+            echo "changed=true" >> $GITHUB_ENV
+          fi
+
       - name: Compile with Maven
         run: mvn -B compile --file pom.xml
-
       - name: Test with Maven
         run: mvn -B test --file pom.xml

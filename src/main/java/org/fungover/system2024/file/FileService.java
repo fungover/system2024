@@ -1,6 +1,8 @@
 package org.fungover.system2024.file;
 
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 public class FileService {
     private FileRepository fileRepository;
     private FileSearchRepository fileSearchRepository;
+    private final Logger logger = LoggerFactory.getLogger(FileService.class);
 
     public FileService(FileRepository fileRepository, FileSearchRepository fileSearchRepository) {
         this.fileRepository = fileRepository;
@@ -15,6 +18,10 @@ public class FileService {
     }
 
     public List<FileDTO> getAllFiles() {
+
+        if (fileRepository.findAll().isEmpty()) {
+            logger.info("File list is empty");
+        }
         return fileRepository.findAll()
                 .stream()
                 .map(FileDTO::fromFile)
