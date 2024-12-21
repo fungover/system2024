@@ -1,7 +1,10 @@
 package org.fungover.system2024.fileupload;
 
+import org.fungover.system2024.file.FileDTO;
 import org.fungover.system2024.file.entity.File;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
@@ -11,9 +14,10 @@ import java.util.stream.Stream;
 public interface StorageService {
 
 
-    void init();
 
     void store(List<MultipartFile> file);
+
+    void deleteAll();
 
     Stream<Path> loadAll();
 
@@ -21,9 +25,10 @@ public interface StorageService {
 
     Resource loadAsResource(String filename);
 
-    void deleteAll();
-
-    String getSafeName(Integer fileId);
+    List<FileDTO> getListOfFiles(Integer userId);
 
     File getFileData(Integer fileId);
+
+    ResponseEntity<ByteArrayResource> loadAllResourseAsZip(List<Integer> fileIds);
+
 }

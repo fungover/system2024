@@ -6,12 +6,15 @@ import org.fungover.system2024.file.entity.File;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FileRepository extends ListCrudRepository<File, Integer> {
 
-    List<File> findAllByOwner(Integer owner);
-
-    String findStoredFilenameById(Integer id);
+    List<File> getAllByOwner(Integer owner);
 
     File getFileById(Integer fileId);
+
+    Optional<String> findStoredFilenameById(Integer id);
+
+    String getStoredFilenameById(Integer id);
 }
