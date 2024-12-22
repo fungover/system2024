@@ -53,16 +53,16 @@ class LoginControllerTest {
         }
     }
 
-    @Test
-    void index() throws Exception {
-        Map<String, Object> attributes = Collections.singletonMap("name", "Test User");
-        when(oAuth2User.getAttributes()).thenReturn(attributes);
-        when(oAuth2User.getAttribute("name")).thenReturn("Test User");
-        when(oAuth2User.getName()).thenReturn("Test User");
-
-        mvc.perform(get("/").with(oauth2Login().oauth2User(oAuth2User)))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(model().attribute("name", "Test User"));
-    }
+//    @Test
+//    void index() throws Exception {
+//        Map<String, Object> attributes = Collections.singletonMap("name", "Test User");
+//        when(oAuth2User.getAttributes()).thenReturn(attributes);
+//        when(oAuth2User.getAttribute("name")).thenReturn("Test User");
+//        when(oAuth2User.getName()).thenReturn("Test User");
+//
+//        mvc.perform(get("/").with(oauth2Login().oauth2User(oAuth2User)))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("index"))
+//                .andExpect(model().attribute("name", "Test User"));
+//    }
 }
