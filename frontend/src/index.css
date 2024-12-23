@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.color1 {
+    color: red;
+    font-weight: bold;
+}
+
+.color2 {
+    color: green;
+    font-weight: bold;
+}
