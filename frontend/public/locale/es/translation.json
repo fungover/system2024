@@ -1,0 +1,22 @@
+{
+  "homekey": "Inicio",
+  "aboutkey": "Acerca de",
+  "contactkey": "Contacto",
+  "loginkey": "Iniciar sesión",
+
+  "navkey": "Navegación",
+  "mediakey": "Redes Sociales",
+  "contactkey": "Información de contacto",
+  "addresskey": "Dirección:",
+  "phonekey": "Número de teléfono:",
+  "emailkey": "Correo electrónico:",
+
+  "jollykey": "En estos tiempos felices les deseamos a todos una  ",
+  "christmaskey": "muy feliz Navidad",
+  "andakey" : "y un",
+  "happykey": "próspero año nuevo",
+
+  "messages": {},
+    "error": {},
+      "translation": "No se pudieron cargar las traducciones: {{msg}} (Idioma: {{lng}}, Namespace: {{ns}})"
+    }

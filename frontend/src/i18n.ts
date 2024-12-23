@@ -1,53 +1,29 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import Backend from 'i18next-http-backend';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18n.use(initReactI18next).init({
-    resources: {
-        en: {
-            translation: {
-                "welcome": "Welcome to React",
-                "changeLanguage": "Change Language",
-                "visitCake": "Visit /cake",
-                "cakeText": "Enjoy a delicious cake!",
-                "languages": {
-                    "en": "English",
-                    "sv": "Swedish",
-                    "es": "Spanish"
-                }
-            },
+i18n
+    .use(Backend)
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+        fallbackLng: 'en',
+        backend: {
+            loadPath: '/locale/{{lng}}/{{ns}}.json',
         },
-        sv: {
-            translation: {
-                "welcome": "Välkommen till React",
-                "changeLanguage": "Byt språk",
-                "visitCake": "Besök /cake",
-                "cakeText": "Njut av en läcker tårta!",
-                "languages": {
-                    "en": "Engelska",
-                    "sv": "Svenska",
-                    "es": "Spanska"
-                }
-            },
+        detection: {
+            order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+            caches: ['localStorage', 'cookie'],
         },
-        es: {
-            translation: {
-                "welcome": "Bienvenido a React",
-                "changeLanguage": "Cambiar idioma",
-                "visitCake": "Visitar /cake",
-                "cakeText": "¡Disfruta de una deliciosa tarta!",
-                "languages": {
-                    "en": "Inglés",
-                    "sv": "Sueco",
-                    "es": "Español"
-                }
-            },
+        react: {
+            useSuspense: true,
         },
-    },
-    lng: "en", // Default language
-    fallbackLng: "en", // Fallback language
-    interpolation: {
-        escapeValue: false, // React already does escaping
-    },
-});
+
+    })
+    .then(() => { console.log("i18n initialized successfully");
+    }) .catch(err => {
+        console.error("i18n initialization failed", err);
+    });
 
 export default i18n;

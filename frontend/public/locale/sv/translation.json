@@ -1,0 +1,24 @@
+{
+  "homekey": "Hem",
+  "aboutkey": "Om",
+  "contactkey": "Kontakt",
+  "loginkey": "Logga in",
+
+  "navkey": "Navigering",
+  "mediakey": "Social Media",
+  "contactkey": "Kontakt information",
+  "addresskey": "Adress:",
+  "phonekey": "Telefonnummer:",
+  "emailkey": "Email:",
+
+  "jollykey": "I dessa glada tider önskar vi er alla en",
+  "christmaskey": "riktigt god jul",
+  "andakey" : "och ett",
+  "happykey": "gott nytt år",
+
+  "messages": {},
+  "error": {},
+  "translation": "Misslyckades med att ladda översättningar: {{msg}} (Språk: {{lng}}, Namnspace: {{ns}})"
+}
+
+

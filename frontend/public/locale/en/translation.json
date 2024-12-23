@@ -1,0 +1,25 @@
+{
+  "homekey": "Home",
+  "aboutkey": "About",
+  "contactkey": "Contact",
+  "loginkey": "Login",
+
+  "navkey": "Navigation",
+  "mediakey": "Social Media",
+  "contactkey": "Contact information",
+  "addresskey": "Address:",
+  "phonekey": "Phonenumber:",
+  "emailkey": "Email:",
+
+  "jollykey": "In these jolly times we wish you all a",
+  "christmaskey": "very merry christmas",
+  "andakey" : "and a",
+  "happykey": "happy new year",
+
+  "messages": {},
+    "error": {},
+      "translation": "Failed to load translations: {{msg}} (Language: {{lng}}, Namespace: {{ns}})"
+    }
+
+
+
