@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="">
-        <h2 className="text-xl font-bold mb-2">{t('contactkey')}</h2>
+        <h2 className="text-xl font-bold mb-2">{t('contactfooterkey')}</h2>
         <ul>
           <li>
             <span className="font-bold">{t('addresskey')}</span> 123 Road, Stockholm

@@ -11,7 +11,7 @@ export const useTranslationStatus = () => {
         const handleLoading = () => setLoading(true);
         const handleLoaded = () => setLoading(false);
         const handleError = (lng: string, ns: string, msg: string) => {
-            setError(t("messages.error.translation", { lng, ns, msg }));
+            setError(`Failed to load translation for ${lng}/${ns}: ${msg}`);
             setLoading(false);
         };
 

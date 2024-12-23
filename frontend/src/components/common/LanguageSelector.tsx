@@ -6,25 +6,33 @@ const LanguageSelector: React.FC = () => {
 
     const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newLanguage = event.target.value;
-        console.log('Changing language to:', newLanguage);
+
+        // Change the language
         i18n.changeLanguage(newLanguage)
-            .then(() => {
-                console.log(`Language changed to ${newLanguage}`);
-            })
             .catch(err => {
-                console.error(`Failed to change language to ${newLanguage}`, err);
+                // Remove debug logging in production
+                // Console logging should be removed or conditionally enabled only in development.
+                if (process.env.NODE_ENV === 'development') {
+                    console.error(`Failed to change language to ${newLanguage}`, err);
+                }
             });
     };
 
     return (
         <div>
-            <select value={i18n.language} onChange={changeLanguage}>
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="sv">Svenska</option>
-            </select>
-        </div>
-    );
+            <select
+                value={i18n.language}
+                onChange={changeLanguage}
+                aria-label="Select language"
+                disabled={i18n.isInitialized === false}
+            >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="sv">Svenska</option>
+        </select>
+</div>
+)
+    ;
 };
 
 export default LanguageSelector;
