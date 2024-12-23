@@ -16,10 +16,11 @@
   "andakey" : "and a",
   "happykey": "happy new year",
 
-  "messages": {},
-    "error": {},
+  "messages": {
+    "error": {
       "translation": "Failed to load translations: {{msg}} (Language: {{lng}}, Namespace: {{ns}})"
     }
-
+  }
+}
 
 

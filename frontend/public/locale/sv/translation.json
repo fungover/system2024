@@ -16,9 +16,12 @@
   "andakey" : "och ett",
   "happykey": "gott nytt år",
 
-  "messages": {},
-  "error": {},
+  "messages": {
+  "error": {
   "translation": "Misslyckades med att ladda översättningar: {{msg}} (Språk: {{lng}}, Namnspace: {{ns}})"
+  }
+  }
 }
+
 
 

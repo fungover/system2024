@@ -16,7 +16,10 @@
   "andakey" : "y un",
   "happykey": "próspero año nuevo",
 
-  "messages": {},
-    "error": {},
+  "messages": {
+    "error": {
       "translation": "No se pudieron cargar las traducciones: {{msg}} (Idioma: {{lng}}, Namespace: {{ns}})"
     }
+  }
+}
+
