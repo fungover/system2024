@@ -9,7 +9,7 @@ public record FileDTO(Integer id, Integer owner, String originalName, String sto
         }
             return new FileDTO(
                     file.getId(),
-                    file.getOwner(),
+                    file.getOwner().getId(),
                     file.getOriginalFilename(),
                     file.getStoredFilename()
             );

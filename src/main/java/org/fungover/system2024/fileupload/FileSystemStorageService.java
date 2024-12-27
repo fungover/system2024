@@ -5,6 +5,8 @@ import org.fungover.system2024.file.FileRepository;
 import org.fungover.system2024.file.entity.File;
 import org.fungover.system2024.fileupload.Exceptions.StorageException;
 import org.fungover.system2024.fileupload.Exceptions.StorageFileNotFoundException;
+import org.fungover.system2024.user.entity.User;
+import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -25,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
@@ -36,10 +39,12 @@ public class FileSystemStorageService implements StorageService {
 
     private final FileRepository fileRepository;
     private final Path fileLocation;
+    private final UserRepository userRepository;
 
-    public FileSystemStorageService(FileRepository fileRepository, @Value("${storage.location}") String storageLocation) {
+    public FileSystemStorageService(FileRepository fileRepository, @Value("${storage.location}") String storageLocation, UserRepository userRepository) {
         this.fileRepository = fileRepository;
         this.fileLocation = Paths.get(storageLocation);
+        this.userRepository = userRepository;
     }
 
 
@@ -68,13 +73,15 @@ public class FileSystemStorageService implements StorageService {
                 }
 
                 // TODO: Change to auth userID
-                int userId = 123;
+                User activeuser;
+
+                activeuser = userRepository.findById(1).isPresent() ? userRepository.findById(1).get() : null;
 
                 try (InputStream inputStream = file.getInputStream()) {
                     Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
                     // Save metadata to the database
                     File metadata = new File();
-                    metadata.setOwner(userId);
+                    metadata.setOwner(activeuser);
                     metadata.setOriginalFilename(file.getOriginalFilename());
                     metadata.setStoredFilename(storedFilename);
                     fileRepository.save(metadata);
@@ -160,10 +167,13 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public List<FileDTO> getListOfFiles(Integer userId) {
-        List<FileDTO> userFiles = fileRepository.getAllByOwner(userId).stream()
+
+        User owner = userRepository.findById(userId)
+                .orElseThrow(() -> new StorageFileNotFoundException("User does not exist"));
+
+        return fileRepository.getAllByOwner(owner).stream()
                 .map(FileDTO::fromFile)
                 .toList();
-        return userFiles;
     }
 
     @Override
