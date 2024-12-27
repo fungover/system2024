@@ -173,6 +173,9 @@ public class FileSystemStorageService implements StorageService {
 
 
     private String sanitizeFilename(String originalFilename) {
+        if (originalFilename.contains("..") || originalFilename.contains("/") || originalFilename.contains("\\")) {
+            throw new IllegalArgumentException("Invalid filename: " + originalFilename);
+        }
         return originalFilename.replaceAll("[^a-zA-Z0-9.-]", "_");
     }
 
