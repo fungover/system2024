@@ -1,11 +1,11 @@
 package org.fungover.system2024.file;
 
 import org.fungover.system2024.file.entity.File;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface FileSearchRepository {
-    List<File> findByNameFuzzy(String name);
+    Page<File> findByNameFuzzy(String name, Pageable pageable);
 }

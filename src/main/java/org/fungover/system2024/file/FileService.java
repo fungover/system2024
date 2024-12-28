@@ -5,8 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -27,11 +25,8 @@ public class FileService {
         return fileRepository.findAll(pageable).map(FileDTO::fromFile);
     }
 
-    public List<FileDTO> getByNameFuzzy(String name) {
-        List<FileDTO> files = fileSearchRepository.findByNameFuzzy(name)
-                .stream()
-                .map(FileDTO::fromFile)
-                .collect(Collectors.toUnmodifiableList());
+    public Page<FileDTO> getByNameFuzzy(String name, Pageable pageable) {
+        Page<FileDTO> files = fileSearchRepository.findByNameFuzzy(name, pageable).map(FileDTO::fromFile);
 
         if (files.isEmpty()) {
             throw new IllegalArgumentException("No such files found");

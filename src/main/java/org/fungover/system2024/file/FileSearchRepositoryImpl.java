@@ -6,8 +6,10 @@ import org.hibernate.search.engine.search.query.SearchResult;
 import org.fungover.system2024.file.entity.File;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public class FileSearchRepositoryImpl implements FileSearchRepository {
@@ -16,7 +18,7 @@ public class FileSearchRepositoryImpl implements FileSearchRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<File> findByNameFuzzy(String name) {
+    public Page<File> findByNameFuzzy(String name, Pageable pageable) {
 
         SearchSession searchSession = Search.session(entityManager);
 
@@ -26,8 +28,8 @@ public class FileSearchRepositoryImpl implements FileSearchRepository {
                         .matching(name)
                         .fuzzy(2)) // This setting decides how lax the fuzzy is. If you increase this -
                 // - it will be less strict when searching. So play around with this setting if you want to.
-                .fetch(20);
+                .fetch((int) pageable.getOffset(), pageable.getPageSize());
 
-        return searchResult.hits();
+        return new PageImpl<>(searchResult.hits(), pageable, searchResult.total().hitCount());
     }
 }
