@@ -1,26 +1,43 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { FaBars } from "react-icons/fa";
 import MenuItems from "./MenuItems";
+import LanguageSelector from './LanguageSelector';
+import {useTranslation} from "react-i18next";
+import { useTranslationStatus } from '../../hooks/useTranslationStatus';
+import i18n from "i18next";
 
 export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useTranslation();
+  const { loading, error } = useTranslationStatus();
 
   const handleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
 
+  useEffect(() => {
+    console.log(t('Home')); // Log to check if translation is correctly loaded
+  }, [i18n.language]);
+
+  if (loading) {
+    return <p>Loading translations...</p>; // Show loading message
+  }
+
+  if (error) {
+    return <p className="text-red-600">{error}</p>; // Show error message
+  }
 
   const menuItems = [
     {
-      title: "Home",
+      title: t("homekey"),
       url: "/",
     },
     {
-      title: "About",
+      title: t("aboutkey"),
       url: "/",
     },
     {
-      title: "Contact",
+      title: t("contactkey"),
       url: "/",
     },
   ];
@@ -38,26 +55,27 @@ export default function Header() {
                 <ul className="h-full flex gap-8">
                   <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
                     <a href="#" className="text-black text-xl">
-                      Home
+                      {t('homekey')}
                     </a>
                   </li>
                   <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
                     <a href="#" className="text-black text-xl">
-                      About
+                      {t('aboutkey')}
                     </a>
                   </li>
                   <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
                     <a href="#" className="text-black text-xl">
-                      Contact
+                      {t('contactkey')}
                     </a>
                   </li>
                   <li className="h-full flex items-center">
                     <button className="p-1 w-24 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700">
-                      <p className="text-lg">Login</p>
+                      <p className="text-lg">{t('loginkey')}</p>
                     </button>
                   </li>
                 </ul>
               </nav>
+              <LanguageSelector />
               <MenuItems menuItems={menuItems} />
             </div>
             <div className="flex items-center">
@@ -83,17 +101,17 @@ export default function Header() {
       >
         <ul className="space-y-6 text-lg font-semibold">
           <li>
-            <a href="#">Home</a>
+            <a href="#">{t('homekey')}</a>
           </li>
           <li>
-            <a href="#">About</a>
+            <a href="#">{t('aboutkey')}</a>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <a href="#">{t('contactkey')}</a>
           </li>
           <li>
             <button className="p-1 w-full  bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 ">
-              Sign in
+              {t('loginkey')}
             </button>
           </li>
         </ul>
