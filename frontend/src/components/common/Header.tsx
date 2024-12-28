@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import { FaBars } from "react-icons/fa";
 import MenuItems from "./MenuItems";
-import MenuItemsMobile from "./MenuItemsMobile";
 import LanguageSelector from './LanguageSelector';
 import {useTranslation} from "react-i18next";
 import { useTranslationStatus } from '../../hooks/useTranslationStatus';
