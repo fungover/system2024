@@ -1,5 +1,7 @@
 package org.fungover.system2024.file;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +10,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService {
-    private FileRepository fileRepository;
-    private FileSearchRepository fileSearchRepository;
+    private final FileRepository fileRepository;
+    private final FileSearchRepository fileSearchRepository;
     private final Logger logger = LoggerFactory.getLogger(FileService.class);
 
     public FileService(FileRepository fileRepository, FileSearchRepository fileSearchRepository) {
@@ -17,15 +19,12 @@ public class FileService {
         this.fileSearchRepository = fileSearchRepository;
     }
 
-    public List<FileDTO> getAllFiles() {
+    public Page<FileDTO> getAllFiles(Pageable pageable) {
 
         if (fileRepository.findAll().isEmpty()) {
             logger.info("File list is empty");
         }
-        return fileRepository.findAll()
-                .stream()
-                .map(FileDTO::fromFile)
-                .toList();
+        return fileRepository.findAll(pageable).map(FileDTO::fromFile);
     }
 
     public List<FileDTO> getByNameFuzzy(String name) {

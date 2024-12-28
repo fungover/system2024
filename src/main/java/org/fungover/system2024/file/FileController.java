@@ -1,5 +1,8 @@
 package org.fungover.system2024.file;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,8 @@ public class FileController {
     }
 
     @GetMapping
-    public List<FileDTO> getAllFiles() {
-        return fileService.getAllFiles();
+    public Page<FileDTO> getAllFiles(@PageableDefault Pageable pageable) {
+        return fileService.getAllFiles(pageable);
     }
 
      @GetMapping("/{name}")
