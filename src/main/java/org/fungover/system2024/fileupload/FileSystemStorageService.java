@@ -7,12 +7,16 @@ import org.fungover.system2024.fileupload.Exceptions.StorageException;
 import org.fungover.system2024.fileupload.Exceptions.StorageFileNotFoundException;
 import org.fungover.system2024.user.entity.User;
 import org.fungover.system2024.user.repository.UserRepository;
+import org.hibernate.cache.spi.support.StorageAccess;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,10 +29,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -53,6 +56,7 @@ public class FileSystemStorageService implements StorageService {
         return fileRepository.getFileById(fileId);
     }
 
+
     @Override
     public void store(List<MultipartFile> files) {
         try {
@@ -72,10 +76,14 @@ public class FileSystemStorageService implements StorageService {
                     throw new StorageException("Cannot store file outside current directory");
                 }
 
-                // TODO: Change to auth userID
-                User activeuser;
-
-                activeuser = userRepository.findById(1).isPresent() ? userRepository.findById(1).get() : null;
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                if (!(authentication.getPrincipal() instanceof OAuth2User oauth2User)) {
+                    throw new StorageException("User not authenticated");
+                }
+                Integer userId = oauth2User.getAttribute("id");
+                assert userId != null;
+                User activeuser = userRepository.findById(userId)
+                        .orElseThrow(() -> new StorageException("User not found"));
 
                 try (InputStream inputStream = file.getInputStream()) {
                     Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
@@ -125,8 +133,77 @@ public class FileSystemStorageService implements StorageService {
         }
     }
 
+//    @Override
+//    public ResponseEntity<ByteArrayResource> loadAllResourseAsZip(List<Integer> fileIds) {
+//        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//             ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+//
+//            for (Integer fileId : fileIds) {
+//                // Fetch file data
+//                File fileData = fileRepository.getFileById(fileId);
+//                if (fileData == null) {
+//                    continue; // Skip invalid file IDs
+//                }
+//
+//                // Load file as Resource
+//                Path filePath = load(fileData.getStoredFilename());
+//                Resource resource = loadAsResource(fileData.getStoredFilename());
+//
+//                if (resource.exists() && resource.isReadable()) {
+//                    // Add file to ZIP
+//                    zipOutputStream.putNextEntry(new ZipEntry(fileData.getOriginalFilename()));
+//                    Files.copy(filePath, zipOutputStream);
+//                    zipOutputStream.closeEntry();
+//                }
+//            }
+//
+//            zipOutputStream.finish();
+//
+//            // Return the ZIP file as a ResponseEntity
+//            ByteArrayResource zipResource = new ByteArrayResource(byteArrayOutputStream.toByteArray());
+//
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"files.zip\"")
+//                    .body(zipResource);
+//
+//        } catch (IOException e) {
+//
+//            Logger logger = Logger.getLogger(getClass().getName());
+//            logger.log(Level.SEVERE, "An error occurred", e);
+//
+//            return ResponseEntity.internalServerError().build();
+//        }
+//    }
+
     @Override
-    public ResponseEntity<ByteArrayResource> loadAllResourseAsZip(List<Integer> fileIds) {
+    public ResponseEntity<ByteArrayResource> loadAllResourcesAsZip(List<Integer> fileIds) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof OAuth2User oauth2User)) {
+            throw new StorageException("User not authenticated");
+        }
+
+        Integer userId = oauth2User.getAttribute("id");
+        if (userId == null) {
+            throw new StorageException("User ID not found in authentication context");
+        }
+
+        User activeUser = userRepository.findById(userId)
+                .orElseThrow(() -> new StorageException("User not found"));
+
+        List<File> userFiles = fileRepository.getAllByOwner(activeUser);
+        if (userFiles.isEmpty()) {
+            throw new StorageFileNotFoundException("No files found for the user");
+        }
+
+        boolean allFilesAuthorized = fileIds.stream()
+                .allMatch(requestedId -> userFiles.stream()
+                        .anyMatch(userFile -> userFile.getId().equals(requestedId)));
+
+        if (!allFilesAuthorized) {
+            throw new StorageFileNotFoundException("User is not authorized for all requested files");
+        }
+
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
              ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
 
@@ -134,6 +211,8 @@ public class FileSystemStorageService implements StorageService {
                 // Fetch file data
                 File fileData = fileRepository.getFileById(fileId);
                 if (fileData == null) {
+                    Logger.getLogger(getClass().getName())
+                            .log(Level.WARNING, "Invalid file ID: {0}", fileId);
                     continue; // Skip invalid file IDs
                 }
 
@@ -146,6 +225,9 @@ public class FileSystemStorageService implements StorageService {
                     zipOutputStream.putNextEntry(new ZipEntry(fileData.getOriginalFilename()));
                     Files.copy(filePath, zipOutputStream);
                     zipOutputStream.closeEntry();
+                } else {
+                    Logger.getLogger(getClass().getName())
+                            .log(Level.WARNING, "File not readable or does not exist: {0}", fileData.getStoredFilename());
                 }
             }
 
@@ -159,19 +241,36 @@ public class FileSystemStorageService implements StorageService {
                     .body(zipResource);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "An error occurred while creating the ZIP file", e);
+
             return ResponseEntity.internalServerError().build();
         }
     }
 
 
     @Override
-    public List<FileDTO> getListOfFiles(Integer userId) {
+    public List<FileDTO> getListOfFiles() {
 
-        User owner = userRepository.findById(userId)
-                .orElseThrow(() -> new StorageFileNotFoundException("User does not exist"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof OAuth2User oauth2User)) {
+            throw new StorageException("User not authenticated");
+        }
 
-        return fileRepository.getAllByOwner(owner).stream()
+        Integer userId = oauth2User.getAttribute("id");
+        if (userId == null) {
+            throw new StorageException("User ID not found in authentication context");
+        }
+
+        User activeUser = userRepository.findById(userId)
+                .orElseThrow(() -> new StorageException("User not found"));
+
+        List<File> userFiles = fileRepository.getAllByOwner(activeUser);
+        if (userFiles.isEmpty()) {
+            throw new StorageFileNotFoundException("No files found for the user");
+        }
+
+        return fileRepository.getAllByOwner(activeUser).stream()
                 .map(FileDTO::fromFile)
                 .toList();
     }

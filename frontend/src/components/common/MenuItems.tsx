@@ -1,3 +1,4 @@
+
 type MenuItem = { title: string; url: string };
 
 interface MenuItems {
@@ -6,7 +7,7 @@ interface MenuItems {
 
 export default function MenuItems({ menuItems }: MenuItems) {
   return (
-    <nav className="h-full w-full font-semibold">
+    <nav className="h-full w-full ml-8 font-semibold">
       <ul className="h-full flex gap-8">
         {menuItems.map((menu, index) => (
           <li
@@ -14,7 +15,7 @@ export default function MenuItems({ menuItems }: MenuItems) {
             className="h-full flex items-center border-b-2 border-white hover:border-purple-800"
           >
             <a href={menu.url} className="text-black text-xl">
-              {menu.title}
+                {menu.title}
             </a>
           </li>
         ))}

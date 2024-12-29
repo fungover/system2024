@@ -30,7 +30,7 @@ public class FileStorageController {
     @GetMapping("/list/{id}")
     public ResponseEntity getAllUsersFileNames(@PathVariable("id") Integer userId) {
         System.out.println(userId);
-        List<FileDTO> listOfNames = storageService.getListOfFiles(userId);
+        List<FileDTO> listOfNames = storageService.getListOfFiles();
         return ResponseEntity.ok(listOfNames);
     }
 
@@ -38,7 +38,7 @@ public class FileStorageController {
     @ResponseBody
     public ResponseEntity<ByteArrayResource> fetchMultipleFiles(@RequestBody Map<String, List<Integer>> payload) {
         List<Integer> fileIds = payload.get("request");
-        return storageService.loadAllResourseAsZip(fileIds);
+        return storageService.loadAllResourcesAsZip(fileIds);
     }
 
 

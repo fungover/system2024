@@ -25,10 +25,10 @@ public interface StorageService {
 
     Resource loadAsResource(String filename);
 
-    List<FileDTO> getListOfFiles(Integer userId);
+    List<FileDTO> getListOfFiles();
 
     File getFileData(Integer fileId);
 
-    ResponseEntity<ByteArrayResource> loadAllResourseAsZip(List<Integer> fileIds);
+    ResponseEntity<ByteArrayResource> loadAllResourcesAsZip(List<Integer> fileIds);
 
 }
