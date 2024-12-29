@@ -15,21 +15,21 @@ public class LoginController {
 
 
    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
-//    @GetMapping("/")
-//    public String index(@AuthenticationPrincipal OAuth2User principal, Model model) {
-//        if (principal != null) {
-//            Integer userId = principal.getAttribute("id");
-//            model.addAttribute("name", principal.getAttribute("name"));
-//            logger.info("User '{}' logged in", userId);
-//
-//            String userName = principal.getName();
-//            if(userName != null && userName.equals("Agent-Smith")) {
-//                logger.info("They are in");
-//            }
-//
-//        } else {
-//            model.addAttribute("name", "Guest");
-//        }
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String index(@AuthenticationPrincipal OAuth2User principal, Model model) {
+        if (principal != null) {
+            Integer userId = principal.getAttribute("id");
+            model.addAttribute("name", principal.getAttribute("name"));
+            logger.info("User '{}' logged in", userId);
+
+            String userName = principal.getName();
+            if(userName != null && userName.equals("Agent-Smith")) {
+                logger.info("They are in");
+            }
+
+        } else {
+            model.addAttribute("name", "Guest");
+        }
+        return "index";
+    }
 }
