@@ -100,7 +100,7 @@ public class FileSystemStorageService implements StorageService {
             }
 
         } catch (IOException e) {
-            throw new StorageException("Cannot store file" + e.getMessage());
+            throw new StorageException("Cannot store file: " + e.getMessage().replaceAll("[\\r\\n]", ""));
         }
     }
 
