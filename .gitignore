@@ -7,6 +7,7 @@ lucene_indexes/
 .DS_Store
 frontend/node
 src/main/resources/static/*
+.env
 
 ### STS ###
 .apt_generated
@@ -35,3 +36,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### FileUpload ###
+src/main/java/org/fungover/system2024/fileupload/ftp
+src/main/java/org/fungover/system2024/fileupload/RESTtest

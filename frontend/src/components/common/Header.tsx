@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import { FaBars } from "react-icons/fa";
 import MenuItems from "./MenuItems";
-import MenuItemsMobile from "./MenuItemsMobile";
 import LanguageSelector from './LanguageSelector';
 import {useTranslation} from "react-i18next";
 import { useTranslationStatus } from '../../hooks/useTranslationStatus';
@@ -52,30 +51,6 @@ export default function Header() {
           </div>
           <div className="flex flex-row align-center h-full">
             <div className="hidden md:flex items-center h-full mr-10">
-              <nav className="h-full w-full font-semibold">
-                <ul className="h-full flex gap-8">
-                  <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
-                    <a href="#" className="text-black text-xl">
-                      {t('homekey')}
-                    </a>
-                  </li>
-                  <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
-                    <a href="#" className="text-black text-xl">
-                      {t('aboutkey')}
-                    </a>
-                  </li>
-                  <li className="h-full flex items-center border-b-2 border-white hover:border-purple-800">
-                    <a href="#" className="text-black text-xl">
-                      {t('contactkey')}
-                    </a>
-                  </li>
-                  <li className="h-full flex items-center">
-                    <button className="p-1 w-24 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700">
-                      <p className="text-lg">{t('loginkey')}</p>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
               <LanguageSelector />
               <MenuItems menuItems={menuItems} />
             </div>
