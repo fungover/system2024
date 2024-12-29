@@ -53,7 +53,6 @@ public class FileStorageController {
             storageService.store(files);
             return ResponseEntity.ok().body("All files uploaded successfully\n");
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body("Error while uploading files\n");
         }
     }
