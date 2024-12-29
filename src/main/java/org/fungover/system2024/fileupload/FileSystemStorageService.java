@@ -212,7 +212,8 @@ public class FileSystemStorageService implements StorageService {
                 File fileData = fileRepository.getFileById(fileId);
                 if (fileData == null) {
                     Logger.getLogger(getClass().getName())
-                            .log(Level.WARNING, "Invalid file ID: {0}", fileId);
+                            .log(Level.WARNING, "Invalid file ID: {0}", 
+                                String.valueOf(fileId).replaceAll("[\n\r\t]", "_"));
                     continue; // Skip invalid file IDs
                 }
 
