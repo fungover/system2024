@@ -14,14 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationService {
 
-    @Setter
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     @Value("${notification.email.recipient}")
     private String recipientEmail;
 
-    private static final Logger logger = LoggerFactory.getLogger(JavaMailSender.class);
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
+
+    @Autowired
+    public NotificationService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
     public void sendNotification(String username, String eventType){
         try {
         SimpleMailMessage message = new SimpleMailMessage();
