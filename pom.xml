@@ -142,7 +142,12 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -199,57 +204,13 @@
                             <version>1.18.36</version>
                         </path>
                     </annotationProcessorPaths>
-                    <source>16</source>
-                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.0</version>
-                <executions>
-                    <!-- Install Node.js and npm -->
-                    <execution>
-                        <id>install-node-and-npm</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v22.12.0</nodeVersion>
-                            <installDirectory>frontend</installDirectory>
-                        </configuration>
-                    </execution>
-                    <!-- Install frontend dependencies -->
-                    <execution>
-                        <id>npm-install</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                            <workingDirectory>frontend</workingDirectory>
-                        </configuration>
-                    </execution>
-                    <!-- Build the frontend -->
-                    <execution>
-                        <id>npm-build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                            <workingDirectory>frontend</workingDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
 </project>
