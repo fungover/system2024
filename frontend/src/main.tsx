@@ -5,6 +5,7 @@ import UsersPage from "./pages/UsersPage.tsx";
 import App from './App.tsx'
 import LoginPage from "./pages/LoginPage.tsx";
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
+import './i18n';
 
 const router = createBrowserRouter([
     {
@@ -30,3 +31,5 @@ createRoot(document.getElementById('root')!).render(
         <RouterProvider router={router} />
     </StrictMode>
 );
+
+
