@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS user
     id       INT AUTO_INCREMENT PRIMARY KEY,
     first_name     VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    email    VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    email    VARCHAR(255) NOT NULL DEFAULT 'unkwown@mailaddress.something',
+    password VARCHAR(255) NOT NULL DEFAULT 'unknown_password',
     UNIQUE (email)
     );
 
