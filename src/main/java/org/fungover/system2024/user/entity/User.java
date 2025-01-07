@@ -14,6 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name = "user", schema = "system24db")
 public class User extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Size(max = 255)
     @NotBlank
