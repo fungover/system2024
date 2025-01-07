@@ -3,6 +3,7 @@ package org.fungover.system2024.user;
 import lombok.extern.slf4j.Slf4j;
 import org.fungover.system2024.exception.ResourceNotFoundException;
 import org.fungover.system2024.user.dto.UserDto;
+import org.fungover.system2024.user.entity.User;
 import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,11 @@ public class UserService {
     }
 
     return users;
+  }
+  public boolean existsById(Integer userId) {
+    return userRepository.existsById(userId);
+  }
+  public void save(User user) {
+    userRepository.save(user);
   }
 }
