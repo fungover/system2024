@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+*.md
+target/
+frontend/node_modules/
+frontend/build/
+.env* 
