@@ -16,12 +16,11 @@
   "andakey" : "och ett",
   "happykey": "gott nytt år",
 
+  "springkey": "Nu är det vår",
+
   "messages": {
   "error": {
   "translation": "Misslyckades med att ladda översättningar: {{msg}} (Språk: {{lng}}, Namnspace: {{ns}})"
   }
   }
 }
-
-
-

@@ -38,9 +38,7 @@ function App() {
           <div className="min-h-screen w-full">
             <LanguageSelector/>
 
-            <h1 className="my-80 text-center text-4xl"> {t('jollykey')} <strong
-                className="color1">{t('christmaskey')}</strong> {t('andakey')} <strong
-                className="color2">{t('happykey')} </strong>!</h1>
+            <h1 className="my-80 text-center text-4xl color1"> {t('springkey')}</h1>
       </div>
     </main>
   <Footer/>

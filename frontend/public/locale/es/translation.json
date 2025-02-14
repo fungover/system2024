@@ -16,10 +16,11 @@
   "andakey" : "y un",
   "happykey": "próspero año nuevo",
 
+  "springkey": "Ahora es primavera",
+
   "messages": {
     "error": {
       "translation": "No se pudieron cargar las traducciones: {{msg}} (Idioma: {{lng}}, Namespace: {{ns}})"
     }
   }
 }
-

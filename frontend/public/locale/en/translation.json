@@ -16,11 +16,11 @@
   "andakey" : "and a",
   "happykey": "happy new year",
 
+  "springkey": "Now it's spring",
+
   "messages": {
     "error": {
       "translation": "Failed to load translations: {{msg}} (Language: {{lng}}, Namespace: {{ns}})"
     }
   }
 }
-
-
