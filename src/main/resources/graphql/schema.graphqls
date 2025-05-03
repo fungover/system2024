@@ -6,3 +6,13 @@ type User {
     name: String!
     email: String!
 }
+
+type Mutation {
+    updateUser(Input: UserUpdate!): Boolean
+}
+
+input UserUpdate {
+    firstName: String
+    lastName: String
+    password: String
+}
