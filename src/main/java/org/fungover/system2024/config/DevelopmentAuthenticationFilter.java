@@ -5,63 +5,37 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import org.fungover.system2024.user.entity.User;
-import org.fungover.system2024.user.repository.UserRepository;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import static org.fungover.system2024.config.DevelopmentAuthenticationFilterService.createAuthentication;
 
 @Component
 @Profile("development")
 public class DevelopmentAuthenticationFilter extends GenericFilterBean {
+    private final DevelopmentAuthenticationFilterService developmentAuthenticationFilterService;
 
-    private final UserRepository userRepository;
-
-    public DevelopmentAuthenticationFilter(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public DevelopmentAuthenticationFilter(DevelopmentAuthenticationFilterService developmentAuthenticationFilterService) {
+        this.developmentAuthenticationFilterService = developmentAuthenticationFilterService;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        User user = getUser();
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
+            User user = developmentAuthenticationFilterService.getUser();
+            OAuth2User oAuth2DevelopmentUser = developmentAuthenticationFilterService.createOAuth2User(user);
+            Authentication authentication = createAuthentication(oAuth2DevelopmentUser);
 
-        OAuth2User oAuth2DevelopmentUser = createOAuth2User(user);
-
-        Authentication authentication = createAuthentication(oAuth2DevelopmentUser);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
-    }
-
-    private User getUser() {
-        return userRepository.findByEmail("development@example.com")
-                .orElseThrow(() -> new RuntimeException("Development user not found by email"));
-    }
-
-    private DefaultOAuth2User createOAuth2User(User user) {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("email", user.getEmail());
-
-        List<SimpleGrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority("ROLE_USER")
-        );
-
-        return new DefaultOAuth2User(authorities, attributes, "email");
-    }
-
-    private static Authentication createAuthentication(OAuth2User oAuth2DevelopmentUser) {
-        return new UsernamePasswordAuthenticationToken(
-                oAuth2DevelopmentUser, "N/A", oAuth2DevelopmentUser.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            chain.doFilter(request, response);
+        } catch (RuntimeException exception) {
+            throw new ServletException(exception);
+        }
     }
 }
