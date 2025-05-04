@@ -32,23 +32,36 @@ public class DevelopmentAuthenticationFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        User user = userRepository.findByEmail("development@example.com")
-                .orElseThrow(() -> new RuntimeException("Development user not found by email"));
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        User user = getUser();
 
+        OAuth2User oAuth2DevelopmentUser = createOAuth2User(user);
+
+        Authentication authentication = createAuthentication(oAuth2DevelopmentUser);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        chain.doFilter(request, response);
+    }
+
+    private User getUser() {
+        return userRepository.findByEmail("development@example.com")
+                .orElseThrow(() -> new RuntimeException("Development user not found by email"));
+    }
+
+    private DefaultOAuth2User createOAuth2User(User user) {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("email", user.getEmail());
 
         List<SimpleGrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority("ROLE_USER"));
+                new SimpleGrantedAuthority("ROLE_USER")
+        );
 
-        OAuth2User oAuth2DevelopmentUser = new DefaultOAuth2User(
-                authorities, attributes, "email");
+        return new DefaultOAuth2User(authorities, attributes, "email");
+    }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                oAuth2DevelopmentUser, "N/A", authorities);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
+    private static Authentication createAuthentication(OAuth2User oAuth2DevelopmentUser) {
+        return new UsernamePasswordAuthenticationToken(
+                oAuth2DevelopmentUser, "N/A", oAuth2DevelopmentUser.getAuthorities());
     }
 }
