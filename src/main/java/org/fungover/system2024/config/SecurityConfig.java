@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Profile("development")
     public SecurityFilterChain developmentSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Allow requests graphiql
+                .csrf(Customizer.withDefaults()) // Enable CSRF protection
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/graphiql", "/graphql").permitAll() // Allow requests graphiql
                         .anyRequest().permitAll() // Allow all requests for development

@@ -31,6 +31,7 @@ import static org.mockito.Mockito.when;
 @WithMockUser(username = "development@example.com", roles = "")
 class System2024ApplicationTests {
     static MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:9.1")
+            .withInitScript("file_test_schema.sql")
             .withDatabaseName("system24dbtest")
             .withUsername("myuser")
             .withPassword("secret");
@@ -71,7 +72,8 @@ class System2024ApplicationTests {
 
     private static void authenticateOAuth2User(OAuth2User oAuth2User) {
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(oAuth2User, null, oAuth2User.getAuthorities());
+                new UsernamePasswordAuthenticationToken(
+                        oAuth2User, null, oAuth2User.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
