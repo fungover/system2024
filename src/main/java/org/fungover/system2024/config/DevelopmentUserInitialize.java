@@ -15,12 +15,12 @@ public class DevelopmentUserInitialize {
     @Bean
     public CommandLineRunner initializeDevelopmentUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            String email = "development@example.com";
+            String email = "Code653ht57t26234yp@example.com";
 
             if (userRepository.findByEmail(email).isEmpty()) {
                 User user = new User();
                 user.setFirst_name("Junior");
-                user.setLast_name("Developer");
+                user.setLast_name("Code653ht57t26234yp");
                 user.setEmail(email);
                 user.setPassword(passwordEncoder.encode("password"));
                 userRepository.save(user);

@@ -22,7 +22,7 @@ public class DevelopmentAuthenticationFilterService {
     }
 
     public User getUser() {
-        return userRepository.findByEmail("development@example.com")
+        return userRepository.findByEmail("Code653ht57t26234yp@example.com")
                 .orElseThrow(() -> new RuntimeException("Development user not found by email"));
     }
 
