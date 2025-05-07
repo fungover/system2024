@@ -7,13 +7,27 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final DevelopmentAuthenticationFilter developmentAuthenticationFilter;
+
+    public SecurityConfig(DevelopmentAuthenticationFilter developmentAuthenticationFilter) {
+        this.developmentAuthenticationFilter = developmentAuthenticationFilter;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     @Profile("development")
@@ -23,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // Allow all requests for development
                 )
+                .addFilterBefore(developmentAuthenticationFilter, BasicAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults()); // Use HTTP Basic authentication for development
         return http.build();
     }
