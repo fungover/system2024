@@ -7,6 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -16,11 +19,17 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 public class SecurityConfig {
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     @Profile("development")
     public SecurityFilterChain developmentSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(Customizer.withDefaults()) // Enable CSRF protection
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/graphiql", "/graphql").permitAll() // Allow requests graphiql
                         .anyRequest().permitAll() // Allow all requests for development
                 )
                 .httpBasic(Customizer.withDefaults()); // Use HTTP Basic authentication for development
