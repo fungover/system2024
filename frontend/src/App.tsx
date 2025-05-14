@@ -1,6 +1,7 @@
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import LanguageSelector from './components/common/LanguageSelector';
+import TodayDate from './components/TodayDate';
 import { useTranslation} from 'react-i18next';
 import { useTranslationStatus } from './hooks/useTranslationStatus';
 import './i18n';
@@ -37,7 +38,9 @@ function App() {
         <main className="w-full">
           <div className="min-h-screen w-full">
             <LanguageSelector/>
-
+            <div className="text-center my-4">
+              <TodayDate />
+            </div>
             <h1 className="my-80 text-center text-4xl"> {t('jollykey')} <strong
                 className="color1">{t('christmaskey')}</strong> {t('andakey')} <strong
                 className="color2">{t('happykey')} </strong>!</h1>
