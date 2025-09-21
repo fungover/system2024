@@ -8,17 +8,20 @@ interface MenuItemsMobile {
 export default function MenuItemsMobile({ menuItemsMobile }: MenuItemsMobile) {
     return (
         <ul className="space-y-6 text-lg font-semibold">
-            {menuItemsMobile.map((menu, index) => (
-                <li key={index}>
+            {menuItemsMobile.map((menu) => (
+                <li key={menu.url}>
                     <Link to={menu.url}>{menu.title}</Link>
                 </li>
             ))}
 
-            <Link to="/login" className="block">
-                <button className="p-1 w-full bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700">
+            <li>
+                <Link
+                    to="/login"
+                    className="p-1 w-full inline-flex items-center justify-center bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700"
+                >
                     Sign in
-                </button>
-            </Link>
+                </Link>
+            </li>
         </ul>
     );
 }

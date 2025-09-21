@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { FaBars } from "react-icons/fa";
 import MenuItems from "./MenuItems";
 import MenuItemsMobile from "./MenuItemsMobile";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
 import { useTranslationStatus } from "../../hooks/useTranslationStatus";
-import i18n from "i18next";
 
 export default function Header() {
     const [isMobile, setIsMobile] = useState(false);
@@ -15,10 +14,6 @@ export default function Header() {
     const handleMobileMenu = () => {
         setIsMobile(!isMobile);
     };
-
-    useEffect(() => {
-        console.log(t("Home")); // Log to check if translation is correctly loaded
-    }, [i18n.language]);
 
     if (loading) {
         return <p>Loading translations...</p>; // Show loading message
@@ -50,7 +45,7 @@ export default function Header() {
                     <div className="h-full flex items-center">
                         <h1 className="text-2xl font-semibold font-serif">LOGO</h1>
                     </div>
-                    <div className="flex flex-row align-center h-full">
+                    <div className="flex flex-row items-center h-full">
                         <div className="hidden md:flex items-center h-full mr-10 gap-4">
                             <LanguageSelector />
                             <MenuItems menuItems={menuItems} />
