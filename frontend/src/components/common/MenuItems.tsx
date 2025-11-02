@@ -5,6 +5,15 @@ interface MenuItems {
   menuItems: MenuItem[];
 }
 
+/**
+ * Render a horizontal navigation menu from an array of menu items with a persistent Login link.
+ *
+ * Each item in `menuItems` is rendered as a router `Link` to its `url`. A Login button linking to `/login`
+ * is appended after the mapped menu items.
+ *
+ * @param menuItems - Array of menu entries where each entry has a `title` and `url`
+ * @returns A navigation element containing the horizontal menu and the Login link
+ */
 export default function MenuItems({ menuItems }: MenuItems) {
     return (
         <nav className="h-full w-full font-semibold">
