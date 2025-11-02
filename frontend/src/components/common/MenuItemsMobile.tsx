@@ -5,6 +5,12 @@ interface MenuItemsMobile {
     menuItemsMobile: MenuItem[];
 }
 
+/**
+ * Renders a vertical mobile menu as an unordered list from the provided menu items.
+ *
+ * @param menuItemsMobile - Array of menu entries; each item must have a `title` and `url`
+ * @returns An unordered list (`ul`) of links for each menu item and a full-width "Sign in" link to `/login`
+ */
 export default function MenuItemsMobile({ menuItemsMobile }: MenuItemsMobile) {
     return (
         <ul className="space-y-6 text-lg font-semibold">

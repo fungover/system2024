@@ -6,6 +6,13 @@ import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
 import { useTranslationStatus } from "../../hooks/useTranslationStatus";
 
+/**
+ * Render the application's responsive top header with branding, navigation, language selection, and a mobile menu.
+ *
+ * The component shows a loading message while translations are loading and an error message if translation loading fails.
+ *
+ * @returns A JSX element containing the header bar (logo, desktop language selector and menu, avatar, and mobile menu toggle) and a sliding mobile menu panel populated with the same menu items.
+ */
 export default function Header() {
     const [isMobile, setIsMobile] = useState(false);
     const { t } = useTranslation();
